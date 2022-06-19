@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { stringify } = require("querystring");
 
-const taskSchema = mongoose.Schema(
+const ticketSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,15 +16,21 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: [true, "please add due date"],
     },
+    type: {
+      type: String,
+      required: [true, "please add due date"],
+    },
     priority: {
       type: String,
       required: [true, "please add priority"],
     },
-    comment: String,
+    comments: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Task", taskSchema);
+module.exports = mongoose.model("Task", ticketSchema);

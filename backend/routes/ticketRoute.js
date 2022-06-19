@@ -13,7 +13,7 @@ const { protect } = require("../middleware/authMiddleware");
 
 //GET and POST
 //.route can be chained with .get and .post
-router.route("/").get(protect, getTickets).post(protect, createTickets);
+router.route("/").get(getTickets).post(protect, createTickets);
 
 //PUT and DELETE request must include id
 router.route("/:id").put(protect, updateTickets).delete(protect, deleteTickets);

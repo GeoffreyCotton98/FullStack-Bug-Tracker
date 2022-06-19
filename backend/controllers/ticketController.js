@@ -16,7 +16,7 @@ const createTickets = asyncHandler(async (req, res) => {
     title: req.body.title,
     dueDate: req.body.dueDate,
     priority: req.body.priority,
-    comments: req.body.comment,
+    comments: req.body.comments,
   });
   res.status(200).json(ticket);
 });
