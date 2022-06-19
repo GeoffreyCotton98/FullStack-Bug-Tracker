@@ -3,34 +3,41 @@ const { stringify } = require("querystring");
 
 const ticketSchema = mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
+    // user: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    //   ref: "User",
+    // },
     title: {
       type: String,
       required: [true, "please add title"],
+    },
+    description: {
+      type: String,
+      required: [true, "please add description"],
     },
     dueDate: {
       type: String,
       required: [true, "please add due date"],
     },
-    type: {
+    status: {
       type: String,
-      required: [true, "please add due date"],
+      required: [true, "please add status"],
     },
     priority: {
       type: String,
       required: [true, "please add priority"],
     },
-    comments: {
+    type: {
       type: String,
+      required: [true, "please add due date"],
     },
+    comments: [],
+    changes: [],
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Task", ticketSchema);
+module.exports = mongoose.model("Ticket", ticketSchema);
