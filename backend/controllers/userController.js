@@ -8,11 +8,11 @@ const User = require("../models/userModel");
 //@route    /api/users/Register
 //@access   public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   //validation
 
-  if (!name || !email || !password) {
+  if (!firstName || !lastName || !email || !password) {
     res.status(400);
     throw new Error("please include all fields");
   }
@@ -34,7 +34,8 @@ const registerUser = asyncHandler(async (req, res) => {
   //create user
 
   const user = await User.create({
-    name,
+    firstName,
+    lastName,
     email,
     password: hashedPassword,
   });
@@ -42,7 +43,8 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       _id: user._id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -64,7 +66,8 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(200).json({
       _id: user._id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -81,7 +84,8 @@ const getMe = asyncHandler(async (req, res) => {
   const user = {
     id: req.user._id,
     email: req.user.email,
-    name: req.user.name,
+    firstName: req.user.firstName,
+    lastName: req.user.lasttName,
   };
   res.status(200).json(user);
 });
