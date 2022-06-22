@@ -90,6 +90,12 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
+//get all users for admins
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find(req.body);
+  res.status(200).json(users);
+});
+
 //generate token
 
 const generateToken = (id) => {
@@ -102,4 +108,5 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
+  getUsers,
 };

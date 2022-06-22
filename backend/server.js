@@ -17,6 +17,15 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to Bug Tracker" });
 });
 
+app.get("/Dashboard", (req, res) => {
+  const loggedIn = false;
+  if (loggedIn) {
+    res.status(200).json({ message: "Welcome to Dashboard" });
+  } else {
+    res.status(200).json({ message: "please login" });
+  }
+});
+
 //ROUTES///
 app.use("/api/users", require("./routes/userRoute"));
 app.use("/api/tickets", require("./routes/ticketRoute"));
