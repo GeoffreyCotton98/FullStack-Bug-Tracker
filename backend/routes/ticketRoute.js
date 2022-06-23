@@ -14,7 +14,13 @@ const { protect } = require("../middleware/authMiddleware");
 
 //GET and POST
 //.route can be chained with .get and .post
-router.route("/").get(getTickets).post(createTickets);
+
+//@ admin routes
+//@desc get all tickets
+//@access private
+router.get("/ticketsAdmin", protect, getTickets);
+
+router.post("/", createTickets);
 router.route("/:id").get(getTicket);
 
 //PUT and DELETE request must include id

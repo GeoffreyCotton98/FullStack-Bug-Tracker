@@ -19,20 +19,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "please enter a password"],
     },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    isDev: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    isClient: {
-      type: Boolean,
-      required: true,
-      default: false,
+    role: {
+      type: String,
+      enum: ["admin", "dev", "client"],
+      default: "admin",
     },
   },
   {

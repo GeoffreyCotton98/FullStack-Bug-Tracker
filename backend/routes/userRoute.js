@@ -10,9 +10,13 @@ const {
 const { protect } = require("../middleware/authMiddleware");
 const User = require("../models/userModel");
 
-router.route("/users").get(getUsers);
 router.post("/", loginUser);
 router.post("/Register", registerUser);
+
+//Admin routes
+
+router.get("/users", protect, getUsers);
+
 router.get("/me", protect, getMe);
 
 module.exports = router;

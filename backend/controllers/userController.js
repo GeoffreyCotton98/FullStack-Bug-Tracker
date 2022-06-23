@@ -46,6 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      role: user.role,
       token: generateToken(user._id),
     });
   } else {
@@ -90,7 +91,9 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
-//get all users for admins
+//@desc Get all users for admins
+//@route /api/users/users
+//access Private
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find(req.body);
   res.status(200).json(users);
