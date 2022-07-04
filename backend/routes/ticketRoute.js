@@ -18,7 +18,7 @@ const { protect } = require("../middleware/authMiddleware");
 //@ admin routes
 //@desc get all tickets
 //@access private
-router.get("/ticketsAdmin", protect, getTickets);
+router.get("/ticketsAdmin", getTickets);
 
 router.post("/", createTickets);
 router.route("/:id").get(getTicket);
