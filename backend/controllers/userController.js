@@ -94,7 +94,7 @@ const getMe = asyncHandler(async (req, res) => {
 //@desc Get all users for admins
 //@route /api/users/users
 //access Private
-const getUsers = asyncHandler(async (req, res) => {
+const getUsersAll = asyncHandler(async (req, res) => {
   const users = await User.find(req.body);
   res.status(200).json(users);
 });
@@ -111,5 +111,5 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
-  getUsers,
+  getUsersAll,
 };

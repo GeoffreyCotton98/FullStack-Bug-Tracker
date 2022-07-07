@@ -5,7 +5,7 @@ const {
   registerUser,
   loginUser,
   getMe,
-  getUsers,
+  getUsersAll,
 } = require("../controllers/userController");
 const { protect } = require("../middleware/authMiddleware");
 const User = require("../models/userModel");
@@ -15,7 +15,7 @@ router.post("/Register", registerUser);
 
 //Admin routes
 
-router.get("/users", protect, getUsers);
+router.get("/usersAll", getUsersAll);
 
 router.get("/me", protect, getMe);
 
