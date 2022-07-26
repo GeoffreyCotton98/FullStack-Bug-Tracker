@@ -3,11 +3,11 @@ const { stringify } = require("querystring");
 
 const ticketSchema = mongoose.Schema(
   {
-    // user: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   required: true,
-    //   ref: "User",
-    // },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     title: {
       type: String,
       required: [true, "please add title"],
@@ -23,10 +23,13 @@ const ticketSchema = mongoose.Schema(
     status: {
       type: String,
       required: [true, "please add status"],
+      enum: ["Open", "Closed", "In-progress"],
+      default: "Open",
     },
     priority: {
       type: String,
       required: [true, "please add priority"],
+      enum: ["low", "medium", "high", "urgent"],
     },
     type: {
       type: String,

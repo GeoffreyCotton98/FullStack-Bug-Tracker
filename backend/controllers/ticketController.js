@@ -6,33 +6,35 @@ const User = require("../models/userModel");
 //POST /api/tasks
 //acces private
 const createTickets = asyncHandler(async (req, res) => {
-  if (!req.body.title) {
+  const { user, title, description, dueDate, status, priority, type } =
+    req.body;
+  if (
+    (!user, !title || !description || !dueDate || !status || !priority || !type)
+  ) {
     res.status(400);
     throw new Error("please add all required fields");
   }
 
   const ticket = await Ticket.create({
-    // user: req.user.id,
-    title: req.body.title,
-    description: req.body.description,
-    dueDate: req.body.dueDate,
-    status: req.body.status,
-    priority: req.body.priority,
-    type: req.body.type,
-    comments: req.body.comments,
-    changes: req.body.changes,
+    user,
+    title,
+    description,
+    dueDate,
+    status,
+    priority,
+    type,
   });
-  res.status(200).json(ticket);
+  res.status(201).json(ticket);
 });
-//Get/Read Goals
-//GET /api/tasks
+//Get/ all tickets
+//GET /api/tickets/ticketsAdmin
 //acces private
-const getTickets = asyncHandler(async (req, res) => {
+const getAllTickets = asyncHandler(async (req, res) => {
   const tickets = await Ticket.find(req.body);
   res.status(200).json(tickets);
 });
 
-const getTicket = asyncHandler(async (req, res) => {
+const getUserTickets = asyncHandler(async (req, res) => {
   const ticket = await Ticket.findById(req.params.id);
   res.status(200).json(ticket);
 });
@@ -101,8 +103,8 @@ const deleteTickets = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getTickets,
-  getTicket,
+  getAllTickets,
+  getUserTickets,
   createTickets,
   updateTickets,
   deleteTickets,
