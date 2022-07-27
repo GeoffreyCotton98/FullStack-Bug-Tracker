@@ -5,23 +5,30 @@ const router = express.Router();
 const {
   getAllTickets,
   getUserTickets,
+  getSingleTicket,
   createTickets,
   updateTickets,
   deleteTickets,
 } = require("../controllers/ticketController");
 
-const { protect } = require("../middleware/authMiddleware");
-
-//GET and POST
-//.route can be chained with .get and .post
+const { protect, protectAdmin } = require("../middleware/authMiddleware");
 
 //@ admin routes
+
 //@desc get all tickets
 //@access private
-router.get("/ticketsAdmin", getAllTickets);
+router.route("/ticketsAdmin").get(protectAdmin, getAllTickets);
 
-router.route("/:id").get(getUserTickets);
-router.post("/", createTickets);
+//@ user routes
+
+//@desc get user tickets
+//@access private
+router.route("/userTickets").get(protect, getUserTickets);
+
+//common routes
+//access private
+router.route("/").post(protect, createTickets);
+router.route("/:id").get(protect, getSingleTicket);
 
 //PUT and DELETE request must include id
 router.route("/:id").put(updateTickets).delete(deleteTickets);
