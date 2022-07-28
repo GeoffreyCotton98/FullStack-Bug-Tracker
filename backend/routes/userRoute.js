@@ -6,6 +6,7 @@ const {
   loginUser,
   getMe,
   getUsersAll,
+  getUser,
   updateUser,
   deleteUser,
 } = require("../controllers/userController");
@@ -16,12 +17,13 @@ router.post("/", loginUser);
 router.post("/Register", registerUser);
 
 //Admin routes
-router.route("/usersAll").get(protectAdmin, protect, getUsersAll);
+router.route("/usersAll").get(protect, getUsersAll);
 
 router
   .route("/:id")
-  .put(protectAdmin, updateUser)
-  .delete(protectAdmin, deleteUser);
+  .put(protect, updateUser)
+  .delete(protect, deleteUser)
+  .get(protect, getUser);
 
 //common routes
 router.get("/me", protect, getMe);

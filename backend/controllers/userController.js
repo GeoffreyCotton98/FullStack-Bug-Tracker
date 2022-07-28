@@ -100,8 +100,33 @@ const getUsersAll = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("user not found");
   }
+  if (user.role !== "admin") {
+    res.status(400);
+    throw new Error("not authorized");
+  }
   const users = await User.find(req.body);
   res.status(200).json(users);
+});
+
+//@desc Get single user for admins
+//@route /api/users/users
+//access Private
+const getUser = asyncHandler(async (req, res) => {
+  const loggedInUser = await User.findById(req.user.id);
+  const user = await User.findById(req.params.id);
+  if (!loggedInUser) {
+    res.status(400);
+    throw new Error("not authorized");
+  }
+  if (loggedInUser.role !== "admin") {
+    res.status(400);
+    throw new Error("not authorized");
+  }
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  res.status(200).json(user);
 });
 
 //@desc allow admins to delete users
@@ -110,10 +135,15 @@ const getUsersAll = asyncHandler(async (req, res) => {
 
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
+  const loggedInUser = await User.findById(req.user.id);
 
   if (!user) {
     res.status(400);
     throw new Error("user not found");
+  }
+  if (loggedInUser.role !== "admin") {
+    res.status(401);
+    throw new Error("not authorized");
   }
 
   await user.remove();
@@ -124,11 +154,17 @@ const deleteUser = asyncHandler(async (req, res) => {
 //acces private
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
+  const loggedInUser = await User.findById(req.user.id);
 
   if (!user) {
     res.status(400);
     throw new Error("user not found");
   }
+  if (loggedInUser.role !== "admin") {
+    res.status(401);
+    throw new Error("not authorized");
+  }
+
   const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
 
   res.status(200).json(updatedUser);
@@ -146,6 +182,7 @@ module.exports = {
   loginUser,
   getMe,
   getUsersAll,
+  getUser,
   deleteUser,
   updateUser,
 };

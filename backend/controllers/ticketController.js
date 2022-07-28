@@ -41,6 +41,10 @@ const getAllTickets = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("user not found");
   }
+  if (user.role !== "admin") {
+    res.status(400);
+    throw new Error("not authorized");
+  }
   const tickets = await Ticket.find(req.body);
   res.status(200).json(tickets);
 });
