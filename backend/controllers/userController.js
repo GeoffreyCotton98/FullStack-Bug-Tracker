@@ -151,7 +151,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 //Update Users
 //PUT /api/users/:id
-//acces private
+//access private
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
   const loggedInUser = await User.findById(req.user.id);
