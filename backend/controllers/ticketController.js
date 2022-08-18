@@ -125,24 +125,24 @@ const updateTickets = asyncHandler(async (req, res) => {
 });
 
 //update assigned users to tickets
-const updateAssignedUsers = asyncHandler(async (req, res) => {
-  const ticket = await Ticket.findById(req.params.id);
+// const updateAssignedUsers = asyncHandler(async (req, res) => {
+//   const ticket = await Ticket.findById(req.params.id);
 
-  if (!ticket) {
-    res.status(400);
-    throw new Error("ticket not found");
-  }
+//   if (!ticket) {
+//     res.status(400);
+//     throw new Error("ticket not found");
+//   }
 
-  const updatedTicket = await Ticket.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    {
-      new: true,
-    }
-  );
+//   const updatedTicket = await Ticket.findByIdAndUpdate(
+//     req.params.id,
+//     req.body,
+//     {
+//       new: true,
+//     }
+//   );
 
-  res.status(200).json(updatedTicket);
-});
+//   res.status(200).json(updatedTicket);
+// });
 
 //Delete Ticekts
 //DELETE /api/tickets/:id
