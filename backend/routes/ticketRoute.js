@@ -6,6 +6,7 @@ const {
   getAllTickets,
   getUserTickets,
   getSingleTicket,
+  getAssignedTickets,
   createTickets,
   updateTickets,
   deleteTickets,
@@ -24,6 +25,9 @@ router.route("/ticketsAdmin").get(protectAdmin, getAllTickets);
 //@desc get user tickets
 //@access private
 router.route("/userTickets").get(protect, getUserTickets);
+
+//get assigned to tickets
+router.route("/assignedTickets").get(protect, getAssignedTickets);
 
 //common routes
 //access private

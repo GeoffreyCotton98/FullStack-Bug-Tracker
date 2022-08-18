@@ -6,7 +6,8 @@ const User = require("../models/userModel");
 //POST /api/tickets
 //acces private
 const createTickets = asyncHandler(async (req, res) => {
-  const { title, description, dueDate, status, priority, type } = req.body;
+  const { title, description, dueDate, status, priority, type, assigned } =
+    req.body;
   if (!title || !description || !dueDate || !status || !priority || !type) {
     res.status(400);
     throw new Error("please add all required fields");
@@ -28,6 +29,7 @@ const createTickets = asyncHandler(async (req, res) => {
     status,
     priority,
     type,
+    assigned,
   });
   res.status(201).json(ticket);
 });
@@ -64,6 +66,21 @@ const getUserTickets = asyncHandler(async (req, res) => {
   res.status(200).json(tickets);
 });
 
+//Get user tickets asssigned to
+//GET /api/ticekts/userTickets
+//access private
+
+const getAssignedTickets = asyncHandler(async (req, res) => {
+  //get users tickets with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const tickets = await Ticket.find({ assigned: req.user.id });
+  res.status(200).json(tickets);
+});
+
 //Get single ticket
 //GET /api/tickets/:id
 //access private
@@ -96,19 +113,25 @@ const updateTickets = asyncHandler(async (req, res) => {
     throw new Error("ticket not found");
   }
 
-  // const user = await User.findById(req.user.id);
+  const updatedTicket = await Ticket.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
 
-  // //check for user
-  // if (!user) {
-  //   res.status(401);
-  //   throw new Error("user not found");
-  // }
+  res.status(200).json(updatedTicket);
+});
 
-  // //make sure only logged in user matches ticket user
-  // if (ticket.user.toString() !== user.id) {
-  //   res.status(401);
-  //   throw new Error("user not authorized");
-  // }
+//update assigned users to tickets
+const updateAssignedUsers = asyncHandler(async (req, res) => {
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(400);
+    throw new Error("ticket not found");
+  }
 
   const updatedTicket = await Ticket.findByIdAndUpdate(
     req.params.id,
@@ -120,6 +143,7 @@ const updateTickets = asyncHandler(async (req, res) => {
 
   res.status(200).json(updatedTicket);
 });
+
 //Delete Ticekts
 //DELETE /api/tickets/:id
 //acces private
@@ -151,6 +175,7 @@ const deleteTickets = asyncHandler(async (req, res) => {
 module.exports = {
   getAllTickets,
   getUserTickets,
+  getAssignedTickets,
   getSingleTicket,
   createTickets,
   updateTickets,

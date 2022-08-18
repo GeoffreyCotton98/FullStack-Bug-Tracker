@@ -1,6 +1,18 @@
 const mongoose = require("mongoose");
 const { stringify } = require("querystring");
 
+const assignedTickets = mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const ticketSchema = mongoose.Schema(
   {
     user: {
@@ -33,6 +45,7 @@ const ticketSchema = mongoose.Schema(
       type: String,
       required: [true, "please add due date"],
     },
+    assigned: [assignedTickets],
     comments: [],
     changes: [],
   },
