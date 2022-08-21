@@ -4,6 +4,8 @@ const express = require("express");
 const router = express.Router();
 const {
   getAllTickets,
+  getCreatedTickets,
+  getUserAssignedTickets,
   getUserTickets,
   getSingleTicket,
   getAssignedTickets,
@@ -19,6 +21,14 @@ const { protect, protectAdmin } = require("../middleware/authMiddleware");
 //@desc get all tickets
 //@access private
 router.route("/ticketsAdmin").get(protectAdmin, getAllTickets);
+
+//@desc get all tickets created by any user
+//@access private
+router.route("/user/:id").get(protect, getCreatedTickets);
+
+//@desc get all tickets assigned to any user
+//@access private
+router.route("/assigned/:id").get(protect, getUserAssignedTickets);
 
 //@ user routes
 

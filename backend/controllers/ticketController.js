@@ -51,6 +51,40 @@ const getAllTickets = asyncHandler(async (req, res) => {
   res.status(200).json(tickets);
 });
 
+//Get tickets a user created
+//for admins only
+//GET /api/tickets/user/:id
+//access private
+
+const getCreatedTickets = asyncHandler(async (req, res) => {
+  //get users tickets with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const tickets = await Ticket.find({ user: req.params.id });
+
+  res.status(200).json(tickets);
+});
+
+//Get tickets a user created
+//for admins only
+//GET /api/tickets/user/:id
+//access private
+
+const getUserAssignedTickets = asyncHandler(async (req, res) => {
+  //get users tickets with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const tickets = await Ticket.find({ assigned: req.params.id });
+
+  res.status(200).json(tickets);
+});
+
 //Get user tickets
 //GET /api/ticekts/userTickets
 //access private
@@ -67,7 +101,7 @@ const getUserTickets = asyncHandler(async (req, res) => {
 });
 
 //Get user tickets asssigned to
-//GET /api/ticekts/userTickets
+//GET /api/ticekts/assignedTickets
 //access private
 
 const getAssignedTickets = asyncHandler(async (req, res) => {
@@ -174,6 +208,8 @@ const deleteTickets = asyncHandler(async (req, res) => {
 
 module.exports = {
   getAllTickets,
+  getCreatedTickets,
+  getUserAssignedTickets,
   getUserTickets,
   getAssignedTickets,
   getSingleTicket,
