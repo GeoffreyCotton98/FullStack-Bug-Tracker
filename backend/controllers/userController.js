@@ -95,10 +95,6 @@ const getUsersAll = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("user not found");
   }
-  if (user.role !== "admin") {
-    res.status(400);
-    throw new Error("not authorized");
-  }
   const users = await User.find(req.body);
   res.status(200).json(users);
 });
@@ -136,10 +132,6 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("user not found");
   }
-  if (loggedInUser.role !== "admin") {
-    res.status(401);
-    throw new Error("not authorized");
-  }
 
   await user.remove();
 });
@@ -154,10 +146,6 @@ const updateUser = asyncHandler(async (req, res) => {
   if (!user) {
     res.status(400);
     throw new Error("user not found");
-  }
-  if (loggedInUser.role !== "admin") {
-    res.status(401);
-    throw new Error("not authorized");
   }
 
   const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
