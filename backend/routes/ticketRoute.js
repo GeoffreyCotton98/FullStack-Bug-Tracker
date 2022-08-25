@@ -20,7 +20,7 @@ const { protect, protectAdmin } = require("../middleware/authMiddleware");
 
 //@desc get all tickets
 //@access private
-router.route("/ticketsAdmin").get(protectAdmin, getAllTickets);
+router.route("/ticketsAdmin").get(protect, getAllTickets);
 
 //@desc get all tickets created by any user
 //@access private

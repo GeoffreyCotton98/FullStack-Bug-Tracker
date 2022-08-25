@@ -109,10 +109,7 @@ const getUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("not authorized");
   }
-  if (loggedInUser.role !== "admin") {
-    res.status(400);
-    throw new Error("not authorized");
-  }
+
   if (!user) {
     res.status(401);
     throw new Error("user not found");

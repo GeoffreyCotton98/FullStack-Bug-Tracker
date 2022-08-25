@@ -18,7 +18,14 @@ const projectSchema = mongoose.Schema(
       type: String,
       default: "Development",
     },
-    team: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    team: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      },
+    ],
 
     comments: [],
     changes: [],
