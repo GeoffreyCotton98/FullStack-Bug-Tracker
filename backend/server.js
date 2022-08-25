@@ -29,6 +29,7 @@ app.get("/Dashboard", (req, res) => {
 //ROUTES///
 app.use("/api/users", require("./routes/userRoute"));
 app.use("/api/tickets", require("./routes/ticketRoute"));
+app.use("/api/projects", require("./routes/projectRoute"));
 
 app.use(errorHandler);
 
