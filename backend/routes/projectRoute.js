@@ -7,24 +7,37 @@ const {
   getSingleProject,
   updateProject,
   deleteProject,
-  getProjectUsers,
+  getMyProjects,
+  getProjectManagerProjects,
   addProjectUser,
 } = require("../controllers/projectController");
 
-const { protect, protectAdmin } = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware");
 
 //Admin routes
+
 router.route("/").post(protect, createProject);
-router.route("/:id").put(protect, updateProject).delete(protect, deleteProject);
+
+//@desc add users to project
+router.route("/addProjectUser/:id").put(protect, addProjectUser);
 
 //@desc get all projects
 //@access private
-router.route("/projectsAdmin").get(protectAdmin, getAllProjects);
+router.route("/projectsAdmin").get(protect, getAllProjects);
+
+//@desc get all my projects
+//@access private
+router.route("/MyProjects").get(protect, getMyProjects);
+
+//@desc get all projects for Project managers and admins
+//@access private
+router.route("/ProjectManagerProjects").get(protect, getProjectManagerProjects);
 
 //@desc get single project
 router.route("/:id").get(protect, getSingleProject);
 
-//@desc get single project
-router.route("/addProjectUser/:id").put(protect, addProjectUser);
+///Common Routes
+
+router.route("/:id").put(protect, updateProject).delete(protect, deleteProject);
 
 module.exports = router;

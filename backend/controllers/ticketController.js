@@ -6,7 +6,7 @@ const User = require("../models/userModel");
 //POST /api/tickets
 //acces private
 const createTickets = asyncHandler(async (req, res) => {
-  const { title, description, dueDate, status, priority, type, assigned } =
+  const { title, description, project, dueDate, status, priority, type } =
     req.body;
   if (!title || !description || !dueDate || !status || !priority || !type) {
     res.status(400);
@@ -25,11 +25,11 @@ const createTickets = asyncHandler(async (req, res) => {
     user: req.user.id,
     title,
     description,
+    project,
     dueDate,
     status,
     priority,
     type,
-    assigned,
   });
   res.status(201).json(ticket);
 });
@@ -47,6 +47,8 @@ const getAllTickets = asyncHandler(async (req, res) => {
   const tickets = await Ticket.find(req.body);
   res.status(200).json(tickets);
 });
+
+//////User Tickets/////////
 
 //Get tickets a user created
 //for admins only
@@ -155,27 +157,7 @@ const updateTickets = asyncHandler(async (req, res) => {
   res.status(200).json(updatedTicket);
 });
 
-//update assigned users to tickets
-// const updateAssignedUsers = asyncHandler(async (req, res) => {
-//   const ticket = await Ticket.findById(req.params.id);
-
-//   if (!ticket) {
-//     res.status(400);
-//     throw new Error("ticket not found");
-//   }
-
-//   const updatedTicket = await Ticket.findByIdAndUpdate(
-//     req.params.id,
-//     req.body,
-//     {
-//       new: true,
-//     }
-//   );
-
-//   res.status(200).json(updatedTicket);
-// });
-
-//Delete Ticekts
+//Delete Tickets
 //DELETE /api/tickets/:id
 //acces private
 const deleteTickets = asyncHandler(async (req, res) => {
@@ -203,6 +185,52 @@ const deleteTickets = asyncHandler(async (req, res) => {
   await ticket.remove();
 });
 
+//Get Ticket Author
+//GET /api/tickets/ticketAuthor/:id
+//acces private
+
+const getTicketAuthor = asyncHandler(async (req, res) => {
+  //get ticket with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Ticket not found");
+  }
+
+  const ticketAuthor = await User.findById(ticket.user);
+
+  if (!ticketAuthor) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+
+  res.status(200).json(ticketAuthor);
+});
+
+//////Project Tickets////////////////
+
+////get all tickets attached to a project
+//GET /api/tickets/projectTickets/:id
+//acces private
+
+const getProjectTickets = asyncHandler(async (req, res) => {
+  //get project tickets with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const tickets = await Ticket.find({ project: req.params.id });
+  res.status(200).json(tickets);
+});
+
 module.exports = {
   getAllTickets,
   getCreatedTickets,
@@ -213,4 +241,6 @@ module.exports = {
   createTickets,
   updateTickets,
   deleteTickets,
+  getTicketAuthor,
+  getProjectTickets,
 };

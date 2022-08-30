@@ -41,7 +41,17 @@ const ticketSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    comments: [],
+    comments: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        comment: {
+          type: String,
+        },
+      },
+    ],
     changes: [],
   },
   {

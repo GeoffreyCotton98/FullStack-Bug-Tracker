@@ -12,6 +12,8 @@ const {
   createTickets,
   updateTickets,
   deleteTickets,
+  getTicketAuthor,
+  getProjectTickets,
 } = require("../controllers/ticketController");
 
 const { protect, protectAdmin } = require("../middleware/authMiddleware");
@@ -30,11 +32,20 @@ router.route("/user/:id").get(protect, getCreatedTickets);
 //@access private
 router.route("/assigned/:id").get(protect, getUserAssignedTickets);
 
+//@desc get all tickets assigned to any user
+//@access private
+router.route("/projectTickets/:id").get(protect, getProjectTickets);
+
+//PUT and DELETE request must include id
+router.route("/:id").put(updateTickets).delete(deleteTickets);
+
 //@ user routes
 
 //@desc get user tickets
 //@access private
 router.route("/userTickets").get(protect, getUserTickets);
+
+router.route("/ticketAuthor/:id").get(protect, getTicketAuthor);
 
 //get assigned to tickets
 router.route("/assignedTickets").get(protect, getAssignedTickets);
@@ -43,8 +54,5 @@ router.route("/assignedTickets").get(protect, getAssignedTickets);
 //access private
 router.route("/").post(protect, createTickets);
 router.route("/:id").get(protect, getSingleTicket);
-
-//PUT and DELETE request must include id
-router.route("/:id").put(updateTickets).delete(deleteTickets);
 
 module.exports = router;

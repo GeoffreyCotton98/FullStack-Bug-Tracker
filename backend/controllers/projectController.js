@@ -7,8 +7,9 @@ const Project = require("../models/projectModel");
 //POST /api/projects
 //acces private
 const createProject = asyncHandler(async (req, res) => {
-  const { title, description, dueDate, status, team } = req.body;
-  if (!title || !description || !dueDate) {
+  const { title, description, dueDate, status, projectManager, team } =
+    req.body;
+  if (!title || !description || !dueDate || !projectManager) {
     res.status(400);
     throw new Error("please add all required fields");
   }
@@ -28,6 +29,7 @@ const createProject = asyncHandler(async (req, res) => {
     dueDate,
     status,
     team,
+    projectManager,
   });
   res.status(201).json(project);
 });
@@ -102,21 +104,42 @@ const deleteProject = asyncHandler(async (req, res) => {
 //GET /api/projects/users
 //access private
 
-const getProjectUsers = asyncHandler(async (req, res) => {
+const getMyProjects = asyncHandler(async (req, res) => {
   //get user with id
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401);
     throw new Error("user not found");
   }
-  const project = await Project.findById(req.params.id);
+  const projects = await Project.find({ team: { $in: [req.user.id] } });
 
-  if (!project) {
+  if (!projects) {
     res.status(404);
-    throw new Error("Project not found");
+    throw new Error("Projects not found");
   }
 
-  res.status(200).json(project.team);
+  res.status(200).json(projects);
+});
+
+//Get project users
+//GET /api/projects/users
+//access private
+
+const getProjectManagerProjects = asyncHandler(async (req, res) => {
+  //get user with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const projects = await Project.find({ projectManager: req.user.id });
+
+  if (!projects) {
+    res.status(404);
+    throw new Error("Projects not found");
+  }
+
+  res.status(200).json(projects);
 });
 
 //Add user to project user
@@ -156,6 +179,7 @@ module.exports = {
   getSingleProject,
   updateProject,
   deleteProject,
-  getProjectUsers,
+  getMyProjects,
+  getProjectManagerProjects,
   addProjectUser,
 };
