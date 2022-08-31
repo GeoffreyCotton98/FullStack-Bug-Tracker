@@ -7,8 +7,15 @@ const Project = require("../models/projectModel");
 //POST /api/projects
 //acces private
 const createProject = asyncHandler(async (req, res) => {
-  const { title, description, dueDate, status, projectManager, team } =
-    req.body;
+  const {
+    title,
+    description,
+    dueDate,
+    status,
+    projectManager,
+    team,
+    currentGoal,
+  } = req.body;
   if (!title || !description || !dueDate || !projectManager) {
     res.status(400);
     throw new Error("please add all required fields");
@@ -25,6 +32,7 @@ const createProject = asyncHandler(async (req, res) => {
   const project = await Project.create({
     createdBy: req.user.id,
     title,
+    currentGoal,
     description,
     dueDate,
     status,
@@ -165,6 +173,29 @@ const getProjectDevelopers = asyncHandler(async (req, res) => {
   res.status(200).json(projectDevelopers);
 });
 
+//Get developers for project
+//GET /api/projects/projectDevelopers/:id
+//access private
+
+const getProjectManager = asyncHandler(async (req, res) => {
+  //get user with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const project = await Project.findById(req.params.id);
+
+  if (!project) {
+    res.status(404);
+    throw new Error("Project not found");
+  }
+
+  const projectManagerAssigned = await User.findById(project.projectManager);
+
+  res.status(200).json(projectManagerAssigned);
+});
+
 //Add user to project
 //Get /api/projects/addProjectUser/:id
 //access private
@@ -205,5 +236,6 @@ module.exports = {
   getMyProjects,
   getProjectManagerProjects,
   getProjectDevelopers,
+  getProjectManager,
   addProjectUser,
 };

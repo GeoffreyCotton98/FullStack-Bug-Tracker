@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const projectSchema = mongoose.Schema(
   {
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     title: {
       type: String,
       required: [true, "please add title"],
@@ -17,6 +22,10 @@ const projectSchema = mongoose.Schema(
     status: {
       type: String,
       default: "Development",
+    },
+    currentGoal: {
+      type: String,
+      default: "No Goal Set",
     },
     projectManager: {
       type: mongoose.Schema.Types.ObjectId,
