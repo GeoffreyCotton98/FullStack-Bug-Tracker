@@ -9,6 +9,7 @@ const {
   deleteProject,
   getMyProjects,
   getProjectManagerProjects,
+  getProjectDevelopers,
   addProjectUser,
 } = require("../controllers/projectController");
 
@@ -32,6 +33,10 @@ router.route("/MyProjects").get(protect, getMyProjects);
 //@desc get all projects for Project managers and admins
 //@access private
 router.route("/ProjectManagerProjects").get(protect, getProjectManagerProjects);
+
+//@desc get all developers for project
+//@access private
+router.route("/projectDevelopers/:id").get(protect, getProjectDevelopers);
 
 //@desc get single project
 router.route("/:id").get(protect, getSingleProject);
