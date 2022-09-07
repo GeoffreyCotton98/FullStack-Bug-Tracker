@@ -8,6 +8,7 @@ const {
   updateProject,
   deleteProject,
   getMyProjects,
+  getUserProjects,
   getProjectManagerProjects,
   getProjectDevelopers,
   getProjectManager,
@@ -42,6 +43,10 @@ router.route("/projectDevelopers/:id").get(protect, getProjectDevelopers);
 //@desc get project manager for project
 //@access private
 router.route("/projectManager/:id").get(protect, getProjectManager);
+
+//@desc get projects for users
+//@access private
+router.route("/UserProjects/:id").get(protect, getUserProjects);
 
 //@desc get single project
 router.route("/:id").get(protect, getSingleProject);

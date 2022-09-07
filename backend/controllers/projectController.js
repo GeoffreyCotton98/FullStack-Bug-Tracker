@@ -108,8 +108,8 @@ const deleteProject = asyncHandler(async (req, res) => {
   await project.remove();
 });
 
-//Get project users
-//GET /api/projects/users
+//Get my projects
+//GET /api/MyProjects/users
 //access private
 
 const getMyProjects = asyncHandler(async (req, res) => {
@@ -120,6 +120,27 @@ const getMyProjects = asyncHandler(async (req, res) => {
     throw new Error("user not found");
   }
   const projects = await Project.find({ team: { $in: [req.user.id] } });
+
+  if (!projects) {
+    res.status(404);
+    throw new Error("Projects not found");
+  }
+
+  res.status(200).json(projects);
+});
+
+//Get user projects
+//GET /api/projects/UserProjects
+//access private
+
+const getUserProjects = asyncHandler(async (req, res) => {
+  //get user with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const projects = await Project.find({ team: { $in: [req.params.id] } });
 
   if (!projects) {
     res.status(404);
@@ -234,6 +255,7 @@ module.exports = {
   updateProject,
   deleteProject,
   getMyProjects,
+  getUserProjects,
   getProjectManagerProjects,
   getProjectDevelopers,
   getProjectManager,
