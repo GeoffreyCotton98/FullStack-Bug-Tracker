@@ -194,6 +194,36 @@ const getProjectDevelopers = asyncHandler(async (req, res) => {
   res.status(200).json(projectDevelopers);
 });
 
+//Get developers for project from ticket
+//GET /api/projects/projectDevelopersFromTicket/:id
+//access private
+
+const getProjectDevelopersFromTicket = asyncHandler(async (req, res) => {
+  //get user with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Ticket not found");
+  }
+
+  const project = await Project.findById(ticket.project);
+
+  if (!project) {
+    res.status(404);
+    throw new Error("Project not found");
+  }
+
+  const projectDevelopers = await User.find({ _id: { $in: project.team } });
+
+  res.status(200).json(projectDevelopers);
+});
+
 //Get developers for project
 //GET /api/projects/projectDevelopers/:id
 //access private
@@ -248,6 +278,7 @@ const addProjectUser = asyncHandler(async (req, res) => {
 
   res.status(200).json(updatedProject);
 });
+
 module.exports = {
   createProject,
   getAllProjects,
@@ -258,6 +289,7 @@ module.exports = {
   getUserProjects,
   getProjectManagerProjects,
   getProjectDevelopers,
+  getProjectDevelopersFromTicket,
   getProjectManager,
   addProjectUser,
 };
