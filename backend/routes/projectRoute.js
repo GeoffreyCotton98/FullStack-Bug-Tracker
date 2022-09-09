@@ -22,6 +22,11 @@ const { protect } = require("../middleware/authMiddleware");
 
 router.route("/").post(protect, createProject);
 
+///Common Routes
+
+router.route("/:id").put(protect, updateProject);
+router.route("/:id").delete(protect, deleteProject);
+
 //@desc add users to project
 router.route("/addProjectUser/:id").put(protect, addProjectUser);
 
@@ -57,9 +62,5 @@ router.route("/UserProjects/:id").get(protect, getUserProjects);
 
 //@desc get single project
 router.route("/:id").get(protect, getSingleProject);
-
-///Common Routes
-
-router.route("/:id").put(protect, updateProject).delete(protect, deleteProject);
 
 module.exports = router;
