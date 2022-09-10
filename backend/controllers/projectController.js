@@ -7,7 +7,6 @@ const Project = require("../models/projectModel");
 //POST /api/projects
 //acces private
 const createProject = asyncHandler(async (req, res) => {
-<<<<<<< HEAD
   const {
     title,
     description,
@@ -18,10 +17,6 @@ const createProject = asyncHandler(async (req, res) => {
     currentGoal,
   } = req.body;
   if (!title || !description || !dueDate || !projectManager) {
-=======
-  const { title, description, dueDate, status, team } = req.body;
-  if (!title || !description || !dueDate) {
->>>>>>> refs/remotes/origin/backend-restructure
     res.status(400);
     throw new Error("please add all required fields");
   }
@@ -37,18 +32,12 @@ const createProject = asyncHandler(async (req, res) => {
   const project = await Project.create({
     createdBy: req.user.id,
     title,
-<<<<<<< HEAD
     currentGoal,
-=======
->>>>>>> refs/remotes/origin/backend-restructure
     description,
     dueDate,
     status,
     team,
-<<<<<<< HEAD
     projectManager,
-=======
->>>>>>> refs/remotes/origin/backend-restructure
   });
   res.status(201).json(project);
 });
@@ -97,11 +86,7 @@ const updateProject = asyncHandler(async (req, res) => {
 
   if (!project) {
     res.status(400);
-<<<<<<< HEAD
     throw new Error("Project not found");
-=======
-    throw new Error("project not found");
->>>>>>> refs/remotes/origin/backend-restructure
   }
 
   const updatedProject = await Project.findByIdAndUpdate(
@@ -123,7 +108,6 @@ const deleteProject = asyncHandler(async (req, res) => {
   await project.remove();
 });
 
-<<<<<<< HEAD
 //Get my projects
 //GET /api/MyProjects/users
 //access private
@@ -192,13 +176,6 @@ const getProjectManagerProjects = asyncHandler(async (req, res) => {
 //access private
 
 const getProjectDevelopers = asyncHandler(async (req, res) => {
-=======
-//Get project users
-//GET /api/projects/users
-//access private
-
-const getProjectUsers = asyncHandler(async (req, res) => {
->>>>>>> refs/remotes/origin/backend-restructure
   //get user with id
   const user = await User.findById(req.user.id);
   if (!user) {
@@ -212,7 +189,6 @@ const getProjectUsers = asyncHandler(async (req, res) => {
     throw new Error("Project not found");
   }
 
-<<<<<<< HEAD
   const projectDevelopers = await User.find({ _id: { $in: project.team } });
 
   res.status(200).json(projectDevelopers);
@@ -273,13 +249,6 @@ const getProjectManager = asyncHandler(async (req, res) => {
 
 //Add user to project
 //Get /api/projects/addProjectUser/:id
-=======
-  res.status(200).json(project.team);
-});
-
-//Add user to project user
-//PUT /api/projects/users
->>>>>>> refs/remotes/origin/backend-restructure
 //access private
 
 const addProjectUser = asyncHandler(async (req, res) => {
@@ -296,7 +265,6 @@ const addProjectUser = asyncHandler(async (req, res) => {
     throw new Error("Project not found");
   }
 
-<<<<<<< HEAD
   const updatedProject = await Project.findOneAndUpdate(
     {
       _id: req.params.id,
@@ -311,27 +279,17 @@ const addProjectUser = asyncHandler(async (req, res) => {
   res.status(200).json(updatedProject);
 });
 
-=======
-  const projectUsers = project.team.push(req.body);
-
-  res.status(200).json(projectUsers, project);
-});
->>>>>>> refs/remotes/origin/backend-restructure
 module.exports = {
   createProject,
   getAllProjects,
   getSingleProject,
   updateProject,
   deleteProject,
-<<<<<<< HEAD
   getMyProjects,
   getUserProjects,
   getProjectManagerProjects,
   getProjectDevelopers,
   getProjectDevelopersFromTicket,
   getProjectManager,
-=======
-  getProjectUsers,
->>>>>>> refs/remotes/origin/backend-restructure
   addProjectUser,
 };
