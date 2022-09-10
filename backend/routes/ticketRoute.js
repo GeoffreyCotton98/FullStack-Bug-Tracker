@@ -3,6 +3,7 @@
 const express = require("express");
 const router = express.Router();
 const {
+<<<<<<< HEAD
   getAllTickets,
   getCreatedTickets,
   getUserAssignedTickets,
@@ -35,10 +36,24 @@ router.route("/assigned/:id").get(protect, getUserAssignedTickets);
 //@desc get all tickets assigned to any user
 //@access private
 router.route("/projectTickets/:id").get(protect, getProjectTickets);
+=======
+  getTickets,
+  createTickets,
+  updateTickets,
+  deleteTickets,
+} = require("../controllers/ticketController");
+
+const { protect } = require("../middleware/authMiddleware");
+
+//GET and POST
+//.route can be chained with .get and .post
+router.route("/").get(getTickets).post(protect, createTickets);
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
 
 //PUT and DELETE request must include id
 router.route("/:id").put(protect, updateTickets).delete(protect, deleteTickets);
 
+<<<<<<< HEAD
 //@ user routes
 
 //@desc get user tickets
@@ -55,4 +70,6 @@ router.route("/assignedTickets").get(protect, getAssignedTickets);
 router.route("/").post(protect, createTickets);
 router.route("/:id").get(protect, getSingleTicket);
 
+=======
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
 module.exports = router;

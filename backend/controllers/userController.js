@@ -8,11 +8,19 @@ const User = require("../models/userModel");
 //@route    /api/users/Register
 //@access   public
 const registerUser = asyncHandler(async (req, res) => {
+<<<<<<< HEAD
   const { firstName, lastName, email, password } = req.body;
 
   //validation
 
   if (!firstName || !lastName || !email || !password) {
+=======
+  const { name, email, password } = req.body;
+
+  //validation
+
+  if (!name || !email || !password) {
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
     res.status(400);
     throw new Error("please include all fields");
   }
@@ -34,8 +42,12 @@ const registerUser = asyncHandler(async (req, res) => {
   //create user
 
   const user = await User.create({
+<<<<<<< HEAD
     firstName,
     lastName,
+=======
+    name,
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
     email,
     password: hashedPassword,
   });
@@ -43,10 +55,15 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       _id: user._id,
+<<<<<<< HEAD
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       role: user.role,
+=======
+      name: user.name,
+      email: user.email,
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
       token: generateToken(user._id),
     });
   } else {
@@ -67,10 +84,15 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(200).json({
       _id: user._id,
+<<<<<<< HEAD
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       role: user.role,
+=======
+      name: user.name,
+      email: user.email,
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
       token: generateToken(user._id),
     });
   } else {
@@ -83,6 +105,7 @@ const loginUser = asyncHandler(async (req, res) => {
 //@route    /api/users/me
 //@access   Private
 const getMe = asyncHandler(async (req, res) => {
+<<<<<<< HEAD
   const user = await User.findById(req.user.id);
   res.status(200).json(user);
 });
@@ -150,6 +173,11 @@ const updateUser = asyncHandler(async (req, res) => {
 
   res.status(200).json(updatedUser);
 });
+=======
+  res.status(200).json(req.user);
+});
+
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
 //generate token
 
 const generateToken = (id) => {
@@ -162,8 +190,11 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
+<<<<<<< HEAD
   getUsersAll,
   getUser,
   deleteUser,
   updateUser,
+=======
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
 };

@@ -31,6 +31,7 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
+<<<<<<< HEAD
 const protectAdmin = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -70,4 +71,8 @@ const protectAdmin = asyncHandler(async (req, res, next) => {
 module.exports = {
   protect,
   protectAdmin,
+=======
+module.exports = {
+  protect,
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
 };

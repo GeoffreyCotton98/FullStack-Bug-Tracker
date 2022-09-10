@@ -1,10 +1,14 @@
 const express = require("express");
+<<<<<<< HEAD
 const asyncHandler = require("express-async-handler");
+=======
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
 const router = express.Router();
 const {
   registerUser,
   loginUser,
   getMe,
+<<<<<<< HEAD
   getUsersAll,
   getUser,
   updateUser,
@@ -27,5 +31,13 @@ router
   .put(protect, updateUser)
   .delete(protect, deleteUser)
   .get(protect, getUser);
+=======
+} = require("../controllers/userController");
+const { protect } = require("../middleware/authMiddleware");
+
+router.post("/", loginUser);
+router.post("/Register", registerUser);
+router.get("/me", protect, getMe);
+>>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
 
 module.exports = router;

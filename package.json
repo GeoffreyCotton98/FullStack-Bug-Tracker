@@ -8,6 +8,7 @@
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefex frontend && npm run build --prefix frontend"
+    
   },
   "author": "Esteban Cotton-Caballero",
   "license": "MIT",
