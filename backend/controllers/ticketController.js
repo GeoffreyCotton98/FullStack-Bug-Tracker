@@ -6,8 +6,16 @@ const User = require("../models/userModel");
 //POST /api/tickets
 //acces private
 const createTickets = asyncHandler(async (req, res) => {
-  const { title, description, project, dueDate, status, priority, type } =
-    req.body;
+  const {
+    title,
+    description,
+    project,
+    dueDate,
+    status,
+    priority,
+    type,
+    assigned,
+  } = req.body;
   if (!title || !description || !dueDate || !status || !priority || !type) {
     throw new Error("please fill out all fields");
   }
@@ -29,6 +37,7 @@ const createTickets = asyncHandler(async (req, res) => {
     status,
     priority,
     type,
+    assigned,
   });
   res.status(201).json(ticket);
 });
@@ -138,20 +147,19 @@ const getSingleTicket = asyncHandler(async (req, res) => {
 //PUT /api/tickets/:id
 //acces private
 const updateTickets = asyncHandler(async (req, res) => {
-  const ticket = await Ticket.findById(req.params.id);
-
-  if (!ticket) {
-    res.status(400);
-
-    throw new Error("ticket not found");
-  }
-
   const user = await User.findById(req.user.id);
 
   //check for user
   if (!user) {
     res.status(401);
     throw new Error("user not found");
+  }
+
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(400);
+    throw new Error("ticket not found");
   }
 
   const updatedTicket = await Ticket.findByIdAndUpdate(

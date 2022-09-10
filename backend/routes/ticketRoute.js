@@ -65,7 +65,7 @@ router.route("/").post(protect, createTickets);
 router.route("/:id").get(protect, getSingleTicket);
 
 //PUT and DELETE request must include id
-router.route("/:id").put(updateTickets).delete(deleteTickets);
+router.route("/:id").put(protect, updateTickets).delete(protect, deleteTickets);
 
 //@ user routes
 
