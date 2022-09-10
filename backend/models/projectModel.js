@@ -2,14 +2,11 @@ const mongoose = require("mongoose");
 
 const projectSchema = mongoose.Schema(
   {
-<<<<<<< HEAD
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-=======
->>>>>>> refs/remotes/origin/backend-restructure
     title: {
       type: String,
       required: [true, "please add title"],
@@ -26,7 +23,6 @@ const projectSchema = mongoose.Schema(
       type: String,
       default: "Development",
     },
-<<<<<<< HEAD
     currentGoal: {
       type: String,
       default: "No Goal Set",
@@ -40,14 +36,6 @@ const projectSchema = mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-=======
-    team: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
->>>>>>> refs/remotes/origin/backend-restructure
       },
     ],
 
