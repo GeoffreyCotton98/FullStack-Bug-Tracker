@@ -32,6 +32,9 @@ const protect = asyncHandler(async (req, res, next) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/backend-restructure
 const protectAdmin = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -71,8 +74,11 @@ const protectAdmin = asyncHandler(async (req, res, next) => {
 module.exports = {
   protect,
   protectAdmin,
+<<<<<<< HEAD
 =======
 module.exports = {
   protect,
 >>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
+=======
+>>>>>>> refs/remotes/origin/backend-restructure
 };

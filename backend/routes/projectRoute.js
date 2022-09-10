@@ -7,6 +7,7 @@ const {
   getSingleProject,
   updateProject,
   deleteProject,
+<<<<<<< HEAD
   getMyProjects,
   getUserProjects,
   getProjectManagerProjects,
@@ -59,8 +60,29 @@ router.route("/projectManager/:id").get(protect, getProjectManager);
 //@desc get projects for users
 //@access private
 router.route("/UserProjects/:id").get(protect, getUserProjects);
+=======
+  getProjectUsers,
+  addProjectUser,
+} = require("../controllers/projectController");
+
+const { protect, protectAdmin } = require("../middleware/authMiddleware");
+
+//Admin routes
+router.route("/").post(protect, createProject);
+router.route("/:id").put(protect, updateProject).delete(protect, deleteProject);
+
+//@desc get all projects
+//@access private
+router.route("/projectsAdmin").get(protectAdmin, getAllProjects);
+>>>>>>> refs/remotes/origin/backend-restructure
 
 //@desc get single project
 router.route("/:id").get(protect, getSingleProject);
 
+<<<<<<< HEAD
+=======
+//@desc get single project
+router.route("addProjectUser/:id").post(protect, addProjectUser);
+
+>>>>>>> refs/remotes/origin/backend-restructure
 module.exports = router;

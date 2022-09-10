@@ -3,6 +3,7 @@ const Ticket = require("../models/ticketModel");
 const User = require("../models/userModel");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //Create Tickets
 //POST /api/tickets
 //acces private
@@ -17,11 +18,23 @@ const createTickets = asyncHandler(async (req, res) => {
 const createTickets = asyncHandler(async (req, res) => {
   if (!req.body.title) {
 >>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
+=======
+//Create Tickets
+//POST /api/tickets
+//acces private
+const createTickets = asyncHandler(async (req, res) => {
+  const { title, description, dueDate, status, priority, type, assigned } =
+    req.body;
+  if (!title || !description || !dueDate || !status || !priority || !type) {
+>>>>>>> refs/remotes/origin/backend-restructure
     res.status(400);
     throw new Error("please add all required fields");
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/backend-restructure
   //get user with id
 
   const user = await User.findById(req.user.id);
@@ -30,6 +43,7 @@ const createTickets = asyncHandler(async (req, res) => {
     throw new Error("user not found");
   }
 
+<<<<<<< HEAD
   const ticket = await Ticket.create({
     user: req.user.id,
     title,
@@ -147,31 +161,135 @@ const getSingleTicket = asyncHandler(async (req, res) => {
 //Update Tickets
 //PUT /api/tickets/:id
 =======
+=======
+>>>>>>> refs/remotes/origin/backend-restructure
   const ticket = await Ticket.create({
     user: req.user.id,
-    title: req.body.title,
-    dueDate: req.body.dueDate,
-    priority: req.body.priority,
-    comments: req.body.comments,
+    title,
+    description,
+    dueDate,
+    status,
+    priority,
+    type,
+    assigned,
   });
-  res.status(200).json(ticket);
+  res.status(201).json(ticket);
 });
-//Get/Read Goals
-//GET /api/tasks
+//Get/ all tickets
+//GET /api/tickets/ticketsAdmin
 //acces private
-const getTickets = asyncHandler(async (req, res) => {
+const getAllTickets = asyncHandler(async (req, res) => {
+  //get user with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+
+  const tickets = await Ticket.find(req.body);
+  res.status(200).json(tickets);
+});
+
+//Get tickets a user created
+//for admins only
+//GET /api/tickets/user/:id
+//access private
+
+const getCreatedTickets = asyncHandler(async (req, res) => {
+  //get users tickets with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const tickets = await Ticket.find({ user: req.params.id });
+
+  res.status(200).json(tickets);
+});
+
+//Get tickets a user created
+//for admins only
+//GET /api/tickets/user/:id
+//access private
+
+const getUserAssignedTickets = asyncHandler(async (req, res) => {
+  //get users tickets with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const tickets = await Ticket.find({ assigned: req.params.id });
+
+  res.status(200).json(tickets);
+});
+
+//Get user tickets
+//GET /api/ticekts/userTickets
+//access private
+
+const getUserTickets = asyncHandler(async (req, res) => {
+  //get users tickets with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
   const tickets = await Ticket.find({ user: req.user.id });
   res.status(200).json(tickets);
 });
+<<<<<<< HEAD
 //Update Goals
 //PUT /api/tasks/:id
 >>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
+=======
+
+//Get user tickets asssigned to
+//GET /api/ticekts/assignedTickets
+//access private
+
+const getAssignedTickets = asyncHandler(async (req, res) => {
+  //get users tickets with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const tickets = await Ticket.find({ assigned: req.user.id });
+  res.status(200).json(tickets);
+});
+
+//Get single ticket
+//GET /api/tickets/:id
+//access private
+
+const getSingleTicket = asyncHandler(async (req, res) => {
+  //get ticket with id
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Ticket not found");
+  }
+
+  res.status(200).json(ticket);
+});
+
+//Update Tickets
+//PUT /api/tickets/:id
+>>>>>>> refs/remotes/origin/backend-restructure
 //acces private
 const updateTickets = asyncHandler(async (req, res) => {
   const ticket = await Ticket.findById(req.params.id);
 
   if (!ticket) {
     res.status(400);
+<<<<<<< HEAD
 <<<<<<< HEAD
     throw new Error("ticket not found");
 =======
@@ -191,6 +309,9 @@ const updateTickets = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("user not authorized");
 >>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
+=======
+    throw new Error("ticket not found");
+>>>>>>> refs/remotes/origin/backend-restructure
   }
 
   const updatedTicket = await Ticket.findByIdAndUpdate(
@@ -204,6 +325,7 @@ const updateTickets = asyncHandler(async (req, res) => {
   res.status(200).json(updatedTicket);
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 //Delete Tickets
 //DELETE /api/tickets/:id
@@ -211,12 +333,38 @@ const updateTickets = asyncHandler(async (req, res) => {
 //Create Goals
 //POST /api/tasks/:id
 >>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
+=======
+
+//update assigned users to tickets
+// const updateAssignedUsers = asyncHandler(async (req, res) => {
+//   const ticket = await Ticket.findById(req.params.id);
+
+//   if (!ticket) {
+//     res.status(400);
+//     throw new Error("ticket not found");
+//   }
+
+//   const updatedTicket = await Ticket.findByIdAndUpdate(
+//     req.params.id,
+//     req.body,
+//     {
+//       new: true,
+//     }
+//   );
+
+//   res.status(200).json(updatedTicket);
+// });
+
+//Delete Ticekts
+//DELETE /api/tickets/:id
+>>>>>>> refs/remotes/origin/backend-restructure
 //acces private
 const deleteTickets = asyncHandler(async (req, res) => {
   const ticket = await Ticket.findById(req.params.id);
 
   if (!ticket) {
     res.status(400);
+<<<<<<< HEAD
 <<<<<<< HEAD
     throw new Error("ticket not found");
   }
@@ -247,10 +395,14 @@ const getTicketAuthor = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
 =======
     throw new Error("task not found");
+=======
+    throw new Error("ticket not found");
+>>>>>>> refs/remotes/origin/backend-restructure
   }
 
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
 
+<<<<<<< HEAD
   //check for user
 >>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
   if (!user) {
@@ -311,12 +463,30 @@ module.exports = {
     res.status(401);
     throw new Error("user not authorized");
   }
+=======
+  // //check for user
+  // if (!user) {
+  //   res.status(401);
+  //   throw new Error("user not found");
+  // }
 
-  await task.remove();
+  // //make sure only logged in user matches ticket user
+  // if (ticket.user.toString() !== user.id) {
+  //   res.status(401);
+  //   throw new Error("user not authorized");
+  // }
+>>>>>>> refs/remotes/origin/backend-restructure
+
+  await ticket.remove();
 });
 
 module.exports = {
-  getTickets,
+  getAllTickets,
+  getCreatedTickets,
+  getUserAssignedTickets,
+  getUserTickets,
+  getAssignedTickets,
+  getSingleTicket,
   createTickets,
   updateTickets,
   deleteTickets,

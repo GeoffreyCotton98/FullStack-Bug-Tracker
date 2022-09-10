@@ -31,9 +31,19 @@ app.get("/", (req, res) => {
 >>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
 });
 
+app.get("/Dashboard", (req, res) => {
+  const loggedIn = false;
+  if (loggedIn) {
+    res.status(200).json({ message: "Welcome to Dashboard" });
+  } else {
+    res.status(200).json({ message: "please login" });
+  }
+});
+
 //ROUTES///
 app.use("/api/users", require("./routes/userRoute"));
 app.use("/api/tickets", require("./routes/ticketRoute"));
+<<<<<<< HEAD
 <<<<<<< HEAD
 app.use("/api/projects", require("./routes/projectRoute"));
 
@@ -52,6 +62,9 @@ if (process.env.NODE_ENV === "production") {
 }
 =======
 >>>>>>> c79b032093d81f814494ac7e8ff00c82f6159127
+=======
+app.use("/api/projects", require("./routes/projectRoute"));
+>>>>>>> refs/remotes/origin/backend-restructure
 
 app.use(errorHandler);
 
