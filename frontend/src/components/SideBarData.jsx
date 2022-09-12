@@ -59,12 +59,6 @@ export const SideBarDataAdmin = [
     icon: <SummarizeIcon />,
   },
   {
-    id: 7,
-    title: "My Projects",
-    path: "/Dashboard/MyProjects",
-    icon: <AssignmentIcon />,
-  },
-  {
     id: 8,
     title: "My Tickets",
     path: "/Dashboard/MyTickets",
@@ -79,7 +73,7 @@ export const SideBarDataAdmin = [
   },
   {
     id: 10,
-    title: "Profile",
+    title: "My Profile",
     path: "/Dashboard/Profile",
     icon: <ManageAccountsIcon />,
   },

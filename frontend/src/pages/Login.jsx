@@ -40,8 +40,11 @@ export default function Login() {
     }
 
     //redirect when logged in
-    if (isSuccess || user) {
+    if (isSuccess || (user && user.role === "Admin")) {
       navigate("/Dashboard/Home");
+    }
+    if (isSuccess || (user && user.role !== "Admin")) {
+      navigate("/Dashboard/MyTickets");
     }
 
     dispatch(reset());

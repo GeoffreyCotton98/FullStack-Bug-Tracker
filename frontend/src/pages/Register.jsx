@@ -44,7 +44,7 @@ export default function Register() {
     }
 
     //redirect when logged in
-    if (isSuccess || user) {
+    if (isSuccess || (user && user.role !== "Submitter")) {
       navigate("/Dashboard/Home");
     }
 

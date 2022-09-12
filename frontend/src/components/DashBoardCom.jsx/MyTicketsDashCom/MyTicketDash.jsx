@@ -105,7 +105,7 @@ function MyTicketDash({ token }) {
                       display: "flex",
                       flexDirection: "column",
                     }}
-                    style={{ height: 765 }}
+                    style={{ minHeight: 765 }}
                   >
                     <div className="allProjectsTableHeader">
                       <Paper
