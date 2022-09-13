@@ -124,8 +124,6 @@ function TicketProject({ updateTicket, deleteTicket }) {
       assigned,
     });
 
-    navigate("/Dashboard/tickets");
-
     toast(`Ticket is assigned`);
   };
 

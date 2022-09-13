@@ -22,7 +22,7 @@ import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 export const SideBarDataAdmin = [
   {
     id: 1,
-    title: "Dashboard Home",
+    title: "Admin Dashboard",
     path: "/Dashboard/Home",
     icon: <DashboardIcon />,
   },
@@ -51,13 +51,6 @@ export const SideBarDataAdmin = [
     path: "/Dashboard/Tickets",
     icon: <BugReportIcon />,
   },
-
-  {
-    id: 6,
-    title: "Manage Projects",
-    path: "/Dashboard/ProjectManage",
-    icon: <SummarizeIcon />,
-  },
   {
     id: 8,
     title: "My Tickets",
@@ -81,23 +74,12 @@ export const SideBarDataAdmin = [
 
 export const SideBarDataProjectManager = [
   {
-    id: 1,
-    title: "Dashboard Home",
-    path: "/Dashboard/Home",
-    icon: <DashboardIcon />,
-  },
-  {
     id: 2,
     title: "Manage Projects",
     path: "/Dashboard/ProjectManage",
     icon: <SummarizeIcon />,
   },
-  {
-    id: 3,
-    title: "My Projects",
-    path: "/Dashboard/MyProjects",
-    icon: <AssessmentIcon />,
-  },
+
   {
     id: 4,
     title: "My Tickets",
@@ -120,17 +102,32 @@ export const SideBarDataProjectManager = [
 
 export const SideBarDataDeveloper = [
   {
-    id: 1,
-    title: "Dashboard Home",
-    path: "/Dashboard/Home",
-    icon: <DashboardIcon />,
-  },
-  {
     id: 2,
     title: "My Projects",
     path: "/Dashboard/MyProjects",
     icon: <AssessmentIcon />,
   },
+  {
+    id: 3,
+    title: "My Tickets",
+    path: "/Dashboard/MyTickets",
+    icon: <ReceiptIcon />,
+  },
+  {
+    id: 4,
+    title: "Submit Ticket",
+    path: "/Dashboard/Report",
+    icon: <ReportIcon />,
+  },
+  {
+    id: 5,
+    title: "Profile",
+    path: "/Dashboard/Profile",
+    icon: <ManageAccountsIcon />,
+  },
+];
+
+export const SideBarDataSubmitter = [
   {
     id: 3,
     title: "My Tickets",

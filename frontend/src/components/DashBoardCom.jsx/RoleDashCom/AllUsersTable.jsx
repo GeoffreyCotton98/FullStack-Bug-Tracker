@@ -61,20 +61,11 @@ export default function AllUsersTable({ allUsers }) {
 
     if (e.target.value === "All") {
       setUsers(allUsers);
-    }
-    if (e.target.value === "Developer") {
-      const onlyDevs = allUsers.filter((user) => user.role === "Developer");
-      setUsers(onlyDevs);
-    }
-    if (e.target.value === "Project-Manager") {
-      const onlyPMs = allUsers.filter(
-        (user) => user.role === "Project-Manager"
+    } else {
+      const onlySelected = allUsers.filter(
+        (user) => user.role === e.target.value
       );
-      setUsers(onlyPMs);
-    }
-    if (e.target.value === "Admin") {
-      const onlyAdmins = allUsers.filter((user) => user.role === "Admin");
-      setUsers(onlyAdmins);
+      setUsers(onlySelected);
     }
   };
 
@@ -144,6 +135,7 @@ export default function AllUsersTable({ allUsers }) {
                     onChange={handleRoleFilter}
                   >
                     <MenuItem value={"All"}>All</MenuItem>
+                    <MenuItem value={"Submitter"}>Submitter</MenuItem>
                     <MenuItem value={"Developer"}>Developer</MenuItem>
                     <MenuItem value={"Project-Manager"}>
                       Project-Manager

@@ -22,7 +22,7 @@ function SingleProjectDisplay({ users, updateProject }) {
     const getProject = async () => {
       const projectFromServer = await fetchProject();
       setProject(projectFromServer);
-      if (projectFromServer.status === "Production") {
+      if (loggedInUser.lastName === "Demo") {
         setProductionDisabled(true);
       }
     };

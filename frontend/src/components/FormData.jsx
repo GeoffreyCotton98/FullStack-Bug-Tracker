@@ -63,4 +63,8 @@ export const RoleData = [
     value: "Developer",
     label: "Developer",
   },
+  {
+    value: "Submitter",
+    label: "Submitter",
+  },
 ];

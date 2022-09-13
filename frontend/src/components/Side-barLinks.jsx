@@ -6,6 +6,7 @@ import {
   SideBarDataAdmin,
   SideBarDataDeveloper,
   SideBarDataProjectManager,
+  SideBarDataSubmitter,
 } from "./SideBarData";
 import { Link } from "react-router-dom";
 
@@ -49,6 +50,23 @@ function SideBarLinks() {
     return (
       <>
         {SideBarDataDeveloper.map((item, index) => {
+          return (
+            <Link to={item.path} key={index}>
+              <ListItemButton>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            </Link>
+          );
+        })}
+      </>
+    );
+  }
+
+  if (loggedInUser.role === "Submitter") {
+    return (
+      <>
+        {SideBarDataSubmitter.map((item, index) => {
           return (
             <Link to={item.path} key={index}>
               <ListItemButton>

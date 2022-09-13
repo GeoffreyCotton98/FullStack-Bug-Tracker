@@ -43,8 +43,14 @@ export default function Login() {
     if (isSuccess || (user && user.role === "Admin")) {
       navigate("/Dashboard/Home");
     }
-    if (isSuccess || (user && user.role !== "Admin")) {
-      navigate("/Dashboard/MyTickets");
+    if (isSuccess || (user && user.role === "Project-Manager")) {
+      navigate("/Dashboard/ProjectManage");
+    }
+    if (isSuccess || (user && user.role === "Developer")) {
+      navigate("/Dashboard/Profile");
+    }
+    if (isSuccess || (user && user.role === "Submitter")) {
+      navigate("/Dashboard/Report");
     }
 
     dispatch(reset());
@@ -78,6 +84,15 @@ export default function Login() {
   const loginDev = (e) => {
     const userData = {
       email: "DemoDev@email.com",
+      password: "123456789",
+    };
+
+    dispatch(login(userData));
+  };
+
+  const loginSubmitter = (e) => {
+    const userData = {
+      email: "DemoSubmitter@email.com",
       password: "123456789",
     };
 
@@ -149,6 +164,9 @@ export default function Login() {
               </div>
               <div className="demoUser" onClick={loginDev}>
                 Developer
+              </div>
+              <div className="demoUser" onClick={loginSubmitter}>
+                Submitter
               </div>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>

@@ -44,8 +44,17 @@ export default function Register() {
     }
 
     //redirect when logged in
-    if (isSuccess || (user && user.role !== "Submitter")) {
+    if (isSuccess || (user && user.role === "Admin")) {
       navigate("/Dashboard/Home");
+    }
+    if (isSuccess || (user && user.role === "Project-Manager")) {
+      navigate("/Dashboard/ProjectManage");
+    }
+    if (isSuccess || (user && user.role === "Developer")) {
+      navigate("/Dashboard/Profile");
+    }
+    if (isSuccess || (user && user.role === "Submitter")) {
+      navigate("/Dashboard/Report");
     }
 
     dispatch(reset());
