@@ -107,7 +107,8 @@ function TicketForm({ onAdd, projects }) {
     setType("Front-End");
     setStatus("Open");
 
-    navigate("/Dashboard/tickets");
+    navigate("/Dashboard/MyTickets");
+    toast("You created a new ticket");
   };
 
   return (

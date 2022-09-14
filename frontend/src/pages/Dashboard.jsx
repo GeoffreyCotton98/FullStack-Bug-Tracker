@@ -31,6 +31,7 @@ import ProjectManageDash from "../components/DashBoardCom.jsx/ProjectManageDashC
 import ProjectManageDisplay from "../components/DashBoardCom.jsx/ProjectManageDashCom/ProjectManageDisplay";
 import TicketProject from "../components/DashBoardCom.jsx/ProjectManageDashCom/TicketProject";
 import Profile from "../components/DashBoardCom.jsx/Profile";
+import EditProject from "../components/DashBoardCom.jsx/AllProjectsDash/EditProject";
 const mdTheme = createTheme();
 
 function Dashboard() {
@@ -109,7 +110,7 @@ function Dashboard() {
     });
 
     const updateTicketsState = tickets.map((ticket) => {
-      if (ticket._id === updatedTicket._id) {
+      if (ticket._id === params.id) {
         return updatedTicket;
       }
 
@@ -160,7 +161,7 @@ function Dashboard() {
     });
 
     const updateUsersState = allUsers.map((user) => {
-      if (user._id === updatedUser._id) {
+      if (user._id === params.id) {
         return updatedUser;
       }
 
@@ -229,7 +230,7 @@ function Dashboard() {
     });
 
     const updateProjectsState = projects.map((project) => {
-      if (project._id === updatedProject._id) {
+      if (project._id === params.id) {
         return updatedProject;
       }
 
@@ -237,23 +238,6 @@ function Dashboard() {
     });
 
     setProjects(updateProjectsState);
-  };
-
-  //add project User
-  const addProjectUser = async (id) => {
-    const res = await fetch(
-      `http://localhost:5000/api/projects/addProjectUser/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(user),
-      }
-    );
-
-    const data = await res.json();
   };
 
   //Delete Project//
@@ -331,6 +315,11 @@ function Dashboard() {
                 <Route
                   exact="Project/:id"
                   element={<SingleProjectDisplay users={allUsers} />}
+                />
+
+                <Route
+                  exact="EditProject/:id"
+                  element={<EditProject users={allUsers} />}
                 />
               </Route>
 

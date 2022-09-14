@@ -6,6 +6,7 @@ import AllProjectsTable from "./AllProjectsTable";
 import SingleProjectDisplay from "./SingleProjectDisplay";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import EditProject from "./EditProject";
 
 function AllProjectDash({ users, projects, updateProject }) {
   return (
@@ -21,6 +22,11 @@ function AllProjectDash({ users, projects, updateProject }) {
         element={
           <SingleProjectDisplay users={users} updateProject={updateProject} />
         }
+      />
+      <Route
+        exact
+        path="/EditProject/:id"
+        element={<EditProject users={users} updateProject={updateProject} />}
       />
     </Routes>
   );

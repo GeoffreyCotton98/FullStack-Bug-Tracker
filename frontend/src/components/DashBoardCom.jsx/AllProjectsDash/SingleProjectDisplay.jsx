@@ -145,6 +145,12 @@ function SingleProjectDisplay({ users, updateProject }) {
     toast("Project is now is Production");
   };
 
+  const handleEditProject = () => {
+    window.confirm("do you want to edit this project?");
+
+    navigate(`/Dashboard/Projects/EditProject/${project._id}`);
+  };
+
   // const HandleAddProjectUser = () => {
   //   addProjectUser({
   //     addUser,
@@ -381,14 +387,33 @@ function SingleProjectDisplay({ users, updateProject }) {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3} lg={3}>
+        <Grid item xs={12} md={6} lg={6}>
           <Button
             variant="contained"
             color="success"
             disabled={isProduction}
             onClick={handleUpdateProject}
+            sx={{
+              mr: 2,
+            }}
           >
             Deploy Project
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleEditProject}
+            sx={{
+              mr: 2,
+            }}
+          >
+            Edit Project
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleUpdateProject}
+          >
+            Delete Project
           </Button>
         </Grid>
       </Grid>

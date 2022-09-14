@@ -22,6 +22,7 @@ import ProjectManageDash from "./components/DashBoardCom.jsx/ProjectManageDashCo
 import ProjectManageDisplay from "./components/DashBoardCom.jsx/ProjectManageDashCom/ProjectManageDisplay";
 import TicketProject from "./components/DashBoardCom.jsx/ProjectManageDashCom/TicketProject";
 import Profile from "./components/DashBoardCom.jsx/Profile";
+import EditProject from "./components/DashBoardCom.jsx/AllProjectsDash/EditProject";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
 
             <Route exact path="Projects/*" element={<AllProjectDash />}>
               <Route path="Project/:id" element={<SingleProjectDisplay />} />
+              <Route path="EditProject/:id" element={<EditProject />} />
             </Route>
 
             <Route exact path="MyProjects/*" element={<MyProjectsDash />}>
