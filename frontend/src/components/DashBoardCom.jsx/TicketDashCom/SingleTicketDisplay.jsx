@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Paper } from "@mui/material";
-import PriorityIcon from "./PriorityIcon";
+import PriorityIcon from "../../PriorityIcon";
 
 import { Divider } from "@mui/material";
 import { useParams } from "react-router-dom";
@@ -20,10 +20,10 @@ import {
   withStyles,
 } from "@mui/material/styles";
 import { InputAdornment, MenuItem } from "@mui/material";
-import { PriorityData, TypeData, StatusData } from "./FormData";
+import { PriorityData, TypeData, StatusData } from "../../FormData";
 import { useState, useEffect } from "react";
 
-import Title from "./Title";
+import Title from "../../Title";
 
 const theme = createTheme();
 
@@ -106,6 +106,14 @@ function SingleTicketDisplay({ allUsers, updateTicket, deleteTicket }) {
     navigate("/Dashboard/tickets");
 
     toast("Ticket has been Deleted");
+  };
+
+  const HandleEdit = () => {
+    if (window.confirm("Are you sure you want to edit this ticket") === true) {
+      navigate(`/Dashboard/Tickets/EditTicket/${ticket._id}`);
+    } else {
+      return;
+    }
   };
 
   const fetchTicket = async () => {
@@ -224,7 +232,7 @@ function SingleTicketDisplay({ allUsers, updateTicket, deleteTicket }) {
                     <Divider />
                   </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
+                  <Grid item xs={6} md={6} lg={4}>
                     <TextField
                       id="ticketAssigned"
                       margin="normal"
@@ -252,7 +260,7 @@ function SingleTicketDisplay({ allUsers, updateTicket, deleteTicket }) {
                     </TextField>
                   </Grid>
 
-                  <Grid item xs={12} md={6} lg={6}>
+                  <Grid item xs={6} md={6} lg={6}>
                     <Button
                       type="submit"
                       disabled={isDisabled}
@@ -262,13 +270,21 @@ function SingleTicketDisplay({ allUsers, updateTicket, deleteTicket }) {
                       Submit
                     </Button>
                   </Grid>
-                  <Grid item xs={12} md={2} lg={2}>
+                  <Grid item xs={12} md={2} lg={4}>
+                    <Button
+                      disabled={isDemo}
+                      onClick={HandleEdit}
+                      variant="contained"
+                      sx={{ mt: 3, mr: 2 }}
+                    >
+                      Edit Ticket
+                    </Button>
                     <Button
                       color="error"
                       disabled={isDemo}
                       onClick={HandleDelete}
                       variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
+                      sx={{ mt: 3, mr: 2 }}
                     >
                       Delete Ticket
                     </Button>

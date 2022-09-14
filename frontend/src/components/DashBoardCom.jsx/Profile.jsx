@@ -5,15 +5,16 @@ function Profile() {
   const user = JSON.parse(localStorage.getItem("user"));
   return (
     <>
-      <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="md" sx={{ mt: 8, mb: 4 }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12}>
             <Paper
               elevation={7}
               sx={{
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
+                height: 600,
               }}
             >
               <Grid container spacing={3}>

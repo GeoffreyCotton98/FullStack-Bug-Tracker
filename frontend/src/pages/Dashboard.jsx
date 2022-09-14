@@ -17,7 +17,7 @@ import RoleDash from "../components/DashBoardCom.jsx/RoleDashCom/RoleDash";
 import TicketDash from "../components/DashBoardCom.jsx/TicketDashCom/TicketDash";
 import SingleUserDisplay from "../components/DashBoardCom.jsx/RoleDashCom/SingleUserDisplay";
 import TicketForm from "../components/DashBoardCom.jsx/TicketForm";
-import SingleTicketDisplay from "../components/SingleTicketDisplay";
+import SingleTicketDisplay from "../components/DashBoardCom.jsx/TicketDashCom/SingleTicketDisplay";
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
 
@@ -32,6 +32,7 @@ import ProjectManageDisplay from "../components/DashBoardCom.jsx/ProjectManageDa
 import TicketProject from "../components/DashBoardCom.jsx/ProjectManageDashCom/TicketProject";
 import Profile from "../components/DashBoardCom.jsx/Profile";
 import EditProject from "../components/DashBoardCom.jsx/AllProjectsDash/EditProject";
+import EditTicket from "../components/DashBoardCom.jsx/TicketDashCom/EditTicket";
 const mdTheme = createTheme();
 
 function Dashboard() {
@@ -406,6 +407,10 @@ function Dashboard() {
                 <Route
                   exact="Ticket/:id"
                   element={<SingleTicketDisplay allUsers={allUsers} />}
+                />
+                <Route
+                  exact="EditTicket/:id"
+                  element={<EditTicket allUsers={allUsers} />}
                 />
               </Route>
 

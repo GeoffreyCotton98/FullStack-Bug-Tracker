@@ -2,9 +2,9 @@ import { Container } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Paper } from "@mui/material";
 
-import TypeDonut from "../../PieCharts/TypeDonut-DESKTOP-HN786RM";
-import PriorityDonut from "../../PieCharts/PriorityDonut";
-import StatusDonut from "../../PieCharts/StatusDonut";
+import TypeDonut from "./PieCharts/TypeDonut-DESKTOP-HN786RM";
+import PriorityDonut from "./PieCharts/PriorityDonut";
+import StatusDonut from "./PieCharts/StatusDonut";
 import { UserBarChart } from "./UserBarChart";
 import { ProjectBarChart } from "./ProjectBarChart";
 

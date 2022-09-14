@@ -11,7 +11,7 @@ import AssignedTicketDisplay from "./components/DashBoardCom.jsx/MyTicketsDashCo
 import RoleDash from "./components/DashBoardCom.jsx/RoleDashCom/RoleDash";
 import TicketDash from "./components/DashBoardCom.jsx/TicketDashCom/TicketDash";
 import TicketForm from "./components/DashBoardCom.jsx/TicketForm";
-import SingleTicketDisplay from "./components/SingleTicketDisplay";
+import SingleTicketDisplay from "./components/DashBoardCom.jsx/TicketDashCom/SingleTicketDisplay";
 import CreateProjectForm from "./components/DashBoardCom.jsx/CreateProjectsDashCom/CreateProjectForm";
 import AllProjectDash from "./components/DashBoardCom.jsx/AllProjectsDash/AllProjectsDash";
 import SingleProjectDisplay from "./components/DashBoardCom.jsx/AllProjectsDash/SingleProjectDisplay";
@@ -23,6 +23,7 @@ import ProjectManageDisplay from "./components/DashBoardCom.jsx/ProjectManageDas
 import TicketProject from "./components/DashBoardCom.jsx/ProjectManageDashCom/TicketProject";
 import Profile from "./components/DashBoardCom.jsx/Profile";
 import EditProject from "./components/DashBoardCom.jsx/AllProjectsDash/EditProject";
+import EditTicket from "./components/DashBoardCom.jsx/TicketDashCom/EditTicket";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
 
             <Route exact path="Tickets/*" element={<TicketDash />}>
               <Route path="Ticket/:id" element={<SingleTicketDisplay />} />
+              <Route path="EditTicket/:id" element={<EditTicket />} />
             </Route>
 
             <Route exact path="Report" element={<TicketForm />} />

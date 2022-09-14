@@ -3,7 +3,8 @@ import { Grid } from "@mui/material";
 import { Paper } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import AllTicketDisplay from "./AllTicketDisplay";
-import SingleTicketDisplay from "../../SingleTicketDisplay";
+import SingleTicketDisplay from "./SingleTicketDisplay";
+import EditTicket from "./EditTicket";
 
 function TicketDash({ tickets, allUsers, updateTicket, deleteTicket }) {
   return (
@@ -19,6 +20,11 @@ function TicketDash({ tickets, allUsers, updateTicket, deleteTicket }) {
             allUsers={allUsers}
           />
         }
+      />
+      <Route
+        exact
+        path="/EditTicket/:id"
+        element={<EditTicket updateTicket={updateTicket} allUsers={allUsers} />}
       />
     </Routes>
   );
