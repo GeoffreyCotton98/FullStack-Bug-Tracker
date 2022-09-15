@@ -25,7 +25,8 @@ function CommentTable() {
     const getTicket = async () => {
       const ticketFromServer = await fetchTicket();
       setTicket(ticketFromServer);
-      setComments(ticketFromServer.comments);
+      const reversedComments = ticketFromServer.comments.reverse();
+      setComments(reversedComments);
     };
     getTicket();
   }, []);
@@ -51,14 +52,14 @@ function CommentTable() {
       {
         method: "PUT",
         headers: {
+          "Content-type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(comment),
       }
     );
-    const data = await res.json();
-    console.log(data);
-    setComments([data, ...comments]);
+
+    setComments([comment, ...comments]);
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -81,10 +82,8 @@ function CommentTable() {
 
   const handleAddComment = () => {
     addComment({
-      comments: {
-        user: loggedInUser._id,
-        comment: commentText,
-      },
+      user: loggedInUser.email,
+      comment: commentText,
     });
   };
 
@@ -141,10 +140,11 @@ function CommentTable() {
                     page * rowsPerPage + rowsPerPage
                   )
                 : comments
-              ).map((comment) => (
-                <TableRow className="tableEl" key={comment._id}>
+              ).map((comment, idx) => (
+                <TableRow className="tableEl" key={idx}>
                   <TableCell>{comment.user}</TableCell>
                   <TableCell>{comment.comment}</TableCell>
+
                   <TableCell></TableCell>
                 </TableRow>
               ))}

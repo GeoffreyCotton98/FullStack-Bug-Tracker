@@ -23,6 +23,7 @@ import { InputAdornment, MenuItem } from "@mui/material";
 import { useState, useEffect } from "react";
 
 import Title from "../../Title";
+import CommentTable from "../../CommentTable";
 
 const theme = createTheme();
 
@@ -129,83 +130,130 @@ function AssignedTicketDisplay({ updateTicket }) {
               alignItems: "center",
             }}
           >
-            <Paper
-              elevation={20}
-              sx={{
-                p: 2,
-              }}
-            >
-              <Box component="form" onSubmit={handleSubmit} noValidate>
-                <Title>
-                  Ticket ID: <span className="idNumber">{ticket._id}</span>
-                </Title>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={7} lg={7}>
+                <Paper
+                  elevation={20}
+                  sx={{
+                    p: 2,
+                  }}
+                >
+                  <Box component="form" onSubmit={handleSubmit} noValidate>
+                    <div className="allProjectsTableHeader">
+                      <Paper
+                        elevation={2}
+                        sx={{
+                          p: 2,
+                          display: "flex",
+                          flexDirection: "column",
+                          height: 60,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          backgroundImage:
+                            "linear-gradient(to top right, #FAC213 , #F77E21)",
+                          color: "white",
+                        }}
+                      >
+                        <h2>ID: {ticket._id}</h2>
+                      </Paper>
+                    </div>
 
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <h2 className="singleTicketDisplay" id="ticketTitle">
-                      {title}
-                    </h2>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <div className="singleTicketDisplayDesc">
-                      <h3>Description:</h3>
+                    <Grid container spacing={3}>
+                      <Grid item xs={12}>
+                        <h2 className="singleTicketDisplay" id="ticketTitle">
+                          {title}
+                        </h2>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <div className="singleTicketDisplayDesc">
+                          <h3>Description:</h3>
 
-                      {description}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Due Date: {dueDate}</p>
-                    </div>
-                  </Grid>
+                          {description}
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Due Date: {dueDate}</p>
+                        </div>
+                      </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Status: {status}</p>
-                    </div>
-                  </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Status: {status}</p>
+                        </div>
+                      </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Priority: {priority}</p>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Type: {type}</p>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>
-                        Submitted by: {ticketAuthor.firstName}{" "}
-                        {ticketAuthor.lastName}
-                      </p>
-                    </div>
-                  </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Priority: {priority}</p>
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Type: {type}</p>
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>
+                            Submitted by: {ticketAuthor.firstName}{" "}
+                            {ticketAuthor.lastName}
+                          </p>
+                        </div>
+                      </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Submitted: {ticket.createdAt}</p>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Submitted: {ticket.createdAt}</p>
+                        </div>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider />
+                      </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
-                    <Button
-                      type="submit"
-                      disabled={isDisabled}
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2, mr: 3 }}
+                      <Grid item xs={12} md={6} lg={4}>
+                        <Button
+                          type="submit"
+                          disabled={isDisabled}
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2, mr: 3 }}
+                        >
+                          Close Ticket
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={5} lg={5}>
+                <Paper
+                  elevation={20}
+                  sx={{
+                    p: 2,
+                  }}
+                >
+                  <div className="allProjectsTableHeader">
+                    <Paper
+                      elevation={2}
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: 60,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundImage:
+                          "linear-gradient(to top right, #FAC213 , #F77E21)",
+                        color: "white",
+                      }}
                     >
-                      Close Ticket
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Paper>
+                      <h2>Comments</h2>
+                    </Paper>
+                  </div>
+                  <CommentTable />
+                </Paper>
+              </Grid>
+            </Grid>
           </Box>
         </Container>
       </ThemeProvider>

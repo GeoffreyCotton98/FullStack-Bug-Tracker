@@ -16,9 +16,13 @@ function SingleProjectDisplay({ users, updateProject }) {
   const [developers, setDevs] = useState([]);
   const [project, setProject] = useState([]);
   const [isProduction, setProductionDisabled] = useState(false);
+  const [isDemo, setDemo] = useState(false);
   const [projectTickets, setProjectTickets] = useState([]);
 
   useEffect(() => {
+    if (loggedInUser.lastName === "Demo") {
+      setDemo(true);
+    }
     const getProject = async () => {
       const projectFromServer = await fetchProject();
       setProject(projectFromServer);
@@ -401,6 +405,7 @@ function SingleProjectDisplay({ users, updateProject }) {
           </Button>
           <Button
             variant="contained"
+            disabled={isDemo}
             onClick={handleEditProject}
             sx={{
               mr: 2,
@@ -410,6 +415,7 @@ function SingleProjectDisplay({ users, updateProject }) {
           </Button>
           <Button
             variant="contained"
+            disabled={isDemo}
             color="error"
             onClick={handleUpdateProject}
           >

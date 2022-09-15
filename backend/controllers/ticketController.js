@@ -254,7 +254,14 @@ const addTicketComment = asyncHandler(async (req, res) => {
 
   if (!ticket) {
     res.status(404);
-    throw new Error("Project not found");
+    throw new Error("Ticket not found");
+  }
+
+  const { user, comment } = req.body;
+
+  if (!user || !comment) {
+    res.status(400);
+    throw new Error("Please fill out fields");
   }
 
   const updatedTicket = await Ticket.findOneAndUpdate(

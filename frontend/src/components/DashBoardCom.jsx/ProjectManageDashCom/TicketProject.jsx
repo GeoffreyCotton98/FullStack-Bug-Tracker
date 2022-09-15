@@ -23,6 +23,7 @@ import { InputAdornment, MenuItem } from "@mui/material";
 import { useState, useEffect } from "react";
 
 import Title from "../../Title";
+import CommentTable from "../../CommentTable";
 
 const theme = createTheme();
 
@@ -158,138 +159,170 @@ function TicketProject({ updateTicket, deleteTicket }) {
 
           <Box
             sx={{
-              marginTop: 8,
+              marginTop: 6,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            <Paper
-              elevation={20}
-              sx={{
-                p: 2,
-              }}
-            >
-              <Box component="form" onSubmit={handleSubmit} noValidate>
-                <div className="allProjectsTableHeader">
-                  <Paper
-                    elevation={2}
-                    sx={{
-                      p: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      height: 60,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      backgroundImage:
-                        "linear-gradient(to top right, #FAC213 , #F77E21)",
-                      color: "white",
-                    }}
-                  >
-                    <h2>Ticket ID: {ticket._id}</h2>
-                  </Paper>
-                </div>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={7} lg={7}>
+                <Paper
+                  elevation={20}
+                  sx={{
+                    p: 2,
+                  }}
+                >
+                  <Box component="form" onSubmit={handleSubmit} noValidate>
+                    <div className="allProjectsTableHeader">
+                      <Paper
+                        elevation={2}
+                        sx={{
+                          p: 2,
+                          display: "flex",
+                          flexDirection: "column",
+                          height: 60,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          backgroundImage:
+                            "linear-gradient(to top right, #FAC213 , #F77E21)",
+                          color: "white",
+                        }}
+                      >
+                        <h2>ID: {ticket._id}</h2>
+                      </Paper>
+                    </div>
 
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <h2 className="singleTicketDisplay" id="ticketTitle">
-                      {ticket.title}
-                    </h2>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <div className="singleTicketDisplayDesc">
-                      <h3>Description:</h3>
+                    <Grid container spacing={3}>
+                      <Grid item xs={12}>
+                        <h2 className="singleTicketDisplay" id="ticketTitle">
+                          {ticket.title}
+                        </h2>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <div className="singleTicketDisplayDesc">
+                          <h3>Description:</h3>
 
-                      {ticket.description}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Due Date: {ticket.dueDate}</p>
-                    </div>
-                  </Grid>
+                          {ticket.description}
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Due Date: {ticket.dueDate}</p>
+                        </div>
+                      </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Status: {status}</p>
-                    </div>
-                  </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Status: {status}</p>
+                        </div>
+                      </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Priority: {ticket.priority}</p>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Type: {ticket.type}</p>
-                    </div>
-                  </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Priority: {ticket.priority}</p>
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Type: {ticket.type}</p>
+                        </div>
+                      </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>Submitted: {ticket.createdAt}</p>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <div className="singleTicketDisplay">
-                      <p>
-                        Submitted by: {author.firstName} {author.lastName}
-                      </p>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>Submitted: {ticket.createdAt}</p>
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={4}>
+                        <div className="singleTicketDisplay">
+                          <p>
+                            Submitted by: {author.firstName} {author.lastName}
+                          </p>
+                        </div>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider />
+                      </Grid>
 
-                  <Grid item xs={12} md={6} lg={4}>
-                    <TextField
-                      id="ticketAssigned"
-                      margin="normal"
-                      fullWidth
-                      select
-                      value={assigned}
-                      onChange={handleAssigned}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            Assigned to:
-                          </InputAdornment>
-                        ),
+                      <Grid item xs={12} md={6} lg={4}>
+                        <TextField
+                          id="ticketAssigned"
+                          margin="normal"
+                          fullWidth
+                          select
+                          value={assigned}
+                          onChange={handleAssigned}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                Assigned to:
+                              </InputAdornment>
+                            ),
+                          }}
+                        >
+                          {developers.map((user) => (
+                            <MenuItem key={user._id} value={user._id}>
+                              {user.firstName} {user.lastName}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </Grid>
+
+                      <Grid item xs={12} md={6} lg={5}>
+                        <Button
+                          type="submit"
+                          disabled={isDisabled}
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          Submit
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} md={12} lg={3}>
+                        <Button
+                          color="error"
+                          onClick={HandleDelete}
+                          disabled={isDemo}
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          Delete Ticket
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={5} lg={5}>
+                <Paper
+                  elevation={20}
+                  sx={{
+                    p: 2,
+                  }}
+                >
+                  <div className="allProjectsTableHeader">
+                    <Paper
+                      elevation={2}
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: 60,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundImage:
+                          "linear-gradient(to top right, #FAC213 , #F77E21)",
+                        color: "white",
                       }}
                     >
-                      {developers.map((user) => (
-                        <MenuItem key={user._id} value={user._id}>
-                          {user.firstName} {user.lastName}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-
-                  <Grid item xs={12} md={6} lg={6}>
-                    <Button
-                      type="submit"
-                      disabled={isDisabled}
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                    >
-                      Submit
-                    </Button>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={2}>
-                    <Button
-                      color="error"
-                      onClick={HandleDelete}
-                      disabled={isDemo}
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                    >
-                      Delete Ticket
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Paper>
+                      <h2>Comments</h2>
+                    </Paper>
+                  </div>
+                  <CommentTable />
+                </Paper>
+              </Grid>
+            </Grid>
           </Box>
         </Container>
       </ThemeProvider>

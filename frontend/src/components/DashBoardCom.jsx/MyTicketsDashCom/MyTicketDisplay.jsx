@@ -22,6 +22,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createTicket, reset } from "../../../features/tickets/ticketSlice";
 import { useParams } from "react-router-dom";
+import CommentTable from "../../CommentTable";
 
 import Title from "../../Title";
 
@@ -133,162 +134,211 @@ function MyTicketDisplay({ updateTicket }) {
               alignItems: "center",
             }}
           >
-            <Paper
-              elevation={20}
-              sx={{
-                p: 2,
-              }}
-            >
-              <Box
-                component="form"
-                onSubmit={handleSubmit}
-                noValidate
-                sx={{ m: 1 }}
-              >
-                <Title>Ticket ID: {ticket._id}</Title>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      margin="normal"
-                      required
-                      disabled={isDisabled}
-                      fullWidth
-                      id="title"
-                      label="Subject"
-                      name="subject"
-                      value={title}
-                      autoFocus
-                      onChange={handleTitle}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      margin="normal"
-                      required
-                      disabled={isDisabled}
-                      fullWidth
-                      name="description"
-                      label="Description"
-                      id="description"
-                      value={description}
-                      onChange={handleDesc}
-                      multiline
-                      rows={6}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={4} lg={4}>
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      disabled={isDisabled}
-                      name="date"
-                      id="date"
-                      type="date"
-                      value={dueDate}
-                      onChange={handleDate}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            Due Date:
-                          </InputAdornment>
-                        ),
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={7} lg={7}>
+                <Paper
+                  elevation={20}
+                  sx={{
+                    p: 2,
+                  }}
+                >
+                  <Box
+                    component="form"
+                    onSubmit={handleSubmit}
+                    noValidate
+                    sx={{ m: 1 }}
+                  >
+                    <div className="allProjectsTableHeader">
+                      <Paper
+                        elevation={2}
+                        sx={{
+                          p: 2,
+                          display: "flex",
+                          flexDirection: "column",
+                          height: 60,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          backgroundImage:
+                            "linear-gradient(to top right, #FAC213 , #F77E21)",
+                          color: "white",
+                        }}
+                      >
+                        <h2>ID: {ticket._id}</h2>
+                      </Paper>
+                    </div>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
+                          margin="normal"
+                          required
+                          disabled={isDisabled}
+                          fullWidth
+                          id="title"
+                          label="Subject"
+                          name="subject"
+                          value={title}
+                          autoFocus
+                          onChange={handleTitle}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          margin="normal"
+                          required
+                          disabled={isDisabled}
+                          fullWidth
+                          name="description"
+                          label="Description"
+                          id="description"
+                          value={description}
+                          onChange={handleDesc}
+                          multiline
+                          rows={6}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={4}>
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          disabled={isDisabled}
+                          name="date"
+                          id="date"
+                          type="date"
+                          value={dueDate}
+                          onChange={handleDate}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                Due Date:
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={4}>
+                        <TextField
+                          id="outlined-start-adornment"
+                          margin="normal"
+                          select
+                          fullWidth
+                          disabled
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                Status:
+                              </InputAdornment>
+                            ),
+                          }}
+                          value={status}
+                          onChange={handleStatus}
+                        >
+                          {StatusData.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={4}>
+                        <TextField
+                          id="ticketPriority"
+                          margin="normal"
+                          select
+                          fullWidth
+                          disabled={isDisabled}
+                          value={priority}
+                          onChange={handlePriority}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                Priority:
+                              </InputAdornment>
+                            ),
+                          }}
+                        >
+                          {PriorityData.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          id="ticketType"
+                          margin="normal"
+                          fullWidth
+                          select
+                          value={type}
+                          disabled={isDisabled}
+                          onChange={handleType}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                Type:
+                              </InputAdornment>
+                            ),
+                          }}
+                        >
+                          {TypeData.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Button
+                          variant="contained"
+                          disabled={!isDisabled}
+                          onClick={onEdit}
+                          sx={{ mt: 3, mb: 2, mr: 3 }}
+                        >
+                          Edit Ticket
+                        </Button>
+                        <Button
+                          type="submit"
+                          disabled={isDisabled}
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          Re-Submit
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={5} lg={5}>
+                <Paper
+                  elevation={20}
+                  sx={{
+                    p: 2,
+                  }}
+                >
+                  <div className="allProjectsTableHeader">
+                    <Paper
+                      elevation={2}
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: 60,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundImage:
+                          "linear-gradient(to top right, #FAC213 , #F77E21)",
+                        color: "white",
                       }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={4} lg={4}>
-                    <TextField
-                      id="outlined-start-adornment"
-                      margin="normal"
-                      select
-                      fullWidth
-                      disabled
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            Status:
-                          </InputAdornment>
-                        ),
-                      }}
-                      value={status}
-                      onChange={handleStatus}
                     >
-                      {StatusData.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                  <Grid item xs={12} md={4} lg={4}>
-                    <TextField
-                      id="ticketPriority"
-                      margin="normal"
-                      select
-                      fullWidth
-                      disabled={isDisabled}
-                      value={priority}
-                      onChange={handlePriority}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            Priority:
-                          </InputAdornment>
-                        ),
-                      }}
-                    >
-                      {PriorityData.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="ticketType"
-                      margin="normal"
-                      fullWidth
-                      select
-                      value={type}
-                      disabled={isDisabled}
-                      onChange={handleType}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            Type:
-                          </InputAdornment>
-                        ),
-                      }}
-                    >
-                      {TypeData.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button
-                      variant="contained"
-                      disabled={!isDisabled}
-                      onClick={onEdit}
-                      sx={{ mt: 3, mb: 2, mr: 3 }}
-                    >
-                      Edit Ticket
-                    </Button>
-                    <Button
-                      type="submit"
-                      disabled={isDisabled}
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                    >
-                      Re-Submit
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Paper>
+                      <h2>Comments</h2>
+                    </Paper>
+                  </div>
+                  <CommentTable />
+                </Paper>
+              </Grid>
+            </Grid>
           </Box>
         </Container>
       </ThemeProvider>
