@@ -53,7 +53,7 @@ function SingleProjectDisplay({ users, updateProject }) {
   const token = loggedInUser.token;
 
   const fetchProject = async () => {
-    const res = await fetch(`/api/projects/${params.id}`, {
+    const res = await fetch(`http://localhost:5000/api/projects/${params.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -64,22 +64,28 @@ function SingleProjectDisplay({ users, updateProject }) {
   };
 
   const fetchProjectTickets = async () => {
-    const res = await fetch(`/api/tickets/projectTickets/${params.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `http://localhost:5000/api/tickets/projectTickets/${params.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await res.json();
 
     return data;
   };
 
   const fetchProjectDevelopers = async () => {
-    const res = await fetch(`/api/projects/projectDevelopers/${params.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `http://localhost:5000/api/projects/projectDevelopers/${params.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const data = await res.json();
 
@@ -87,11 +93,14 @@ function SingleProjectDisplay({ users, updateProject }) {
   };
 
   const fetchProjectManager = async () => {
-    const res = await fetch(`/api/projects/projectManager/${params.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `http://localhost:5000/api/projects/projectManager/${params.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const data = await res.json();
 
@@ -100,13 +109,16 @@ function SingleProjectDisplay({ users, updateProject }) {
 
   //add project User
   const addProjectUser = async () => {
-    const res = await fetch(`/api/projects/addProjectUser/${params.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `http://localhost:5000/api/projects/addProjectUser/${params.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const data = await res.json();
 

@@ -47,7 +47,7 @@ function MyTicketDash({ token }) {
   }, []);
 
   const fetchLoggedInUser = async () => {
-    const res = await fetch(`/api/users/me`, {
+    const res = await fetch(`http://localhost:5000/api/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -58,7 +58,7 @@ function MyTicketDash({ token }) {
   };
 
   const fetchUserCreatedTickets = async () => {
-    const res = await fetch(`/api/tickets/userTickets`, {
+    const res = await fetch(`http://localhost:5000/api/tickets/userTickets`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -69,11 +69,14 @@ function MyTicketDash({ token }) {
   };
 
   const fetchUserAssignedTickets = async () => {
-    const res = await fetch(`/api/tickets/assignedTickets`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `http://localhost:5000/api/tickets/assignedTickets`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await res.json();
 
     return data;
