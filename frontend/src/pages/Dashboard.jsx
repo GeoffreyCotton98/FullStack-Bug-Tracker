@@ -74,7 +74,7 @@ function Dashboard() {
   //fetch  all tickets
   //admins only
   const fetchTickets = async () => {
-    const res = await fetch("http://localhost:5000/api/tickets/ticketsAdmin", {
+    const res = await fetch("/api/tickets/ticketsAdmin", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -86,7 +86,7 @@ function Dashboard() {
 
   //add ticket
   const addTicket = async (ticket) => {
-    const res = await fetch("http://localhost:5000/api/tickets", {
+    const res = await fetch("/api/tickets", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -101,7 +101,7 @@ function Dashboard() {
   };
 
   const updateTicket = async (updatedTicket) => {
-    const res = await fetch(`http://localhost:5000/api/tickets/${params.id}`, {
+    const res = await fetch(`/api/tickets/${params.id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -124,7 +124,7 @@ function Dashboard() {
   const deleteTicket = async (id) => {
     setTickets(tickets.filter((ticket) => ticket._id !== id));
 
-    const res = await fetch(`http://localhost:5000/api/tickets/${params.id}`, {
+    const res = await fetch(`/api/tickets/${params.id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -138,7 +138,7 @@ function Dashboard() {
   //fetch all users
   //admins only
   const fetchAllUsers = async () => {
-    const res = await fetch("http://localhost:5000/api/users/usersAll", {
+    const res = await fetch("/api/users/usersAll", {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -152,7 +152,7 @@ function Dashboard() {
   };
 
   const updateUser = async (updatedUser) => {
-    const res = await fetch(`http://localhost:5000/api/users/${params.id}`, {
+    const res = await fetch(`/api/users/${params.id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -174,7 +174,7 @@ function Dashboard() {
 
   const DeleteUser = async (id) => {
     setAllUsers(allUsers.filter((user) => user._id !== id));
-    const res = await fetch(`http://localhost:5000/api/users/${params.id}`, {
+    const res = await fetch(`/api/users/${params.id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -189,7 +189,7 @@ function Dashboard() {
 
   //Create Project
   const addProject = async (project) => {
-    const res = await fetch("http://localhost:5000/api/projects", {
+    const res = await fetch("/api/projects", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -206,14 +206,11 @@ function Dashboard() {
   //fetch  all Projects
   //admins only
   const fetchProjects = async () => {
-    const res = await fetch(
-      "http://localhost:5000/api/projects/projectsAdmin",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch("/api/projects/projectsAdmin", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await res.json();
     return data;
@@ -221,7 +218,7 @@ function Dashboard() {
 
   //update Projects
   const updateProject = async (updatedProject) => {
-    const res = await fetch(`http://localhost:5000/api/projects/${params.id}`, {
+    const res = await fetch(`/api/projects/${params.id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -244,7 +241,7 @@ function Dashboard() {
   //Delete Project//
   const DeleteProject = async (id) => {
     setProjects(projects.filter((project) => project._id !== id));
-    const res = await fetch(`http://localhost:5000/api/projects/${params.id}`, {
+    const res = await fetch(`/api/projects/${params.id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",

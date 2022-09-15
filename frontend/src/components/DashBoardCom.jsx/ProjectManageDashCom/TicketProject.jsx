@@ -80,7 +80,7 @@ function TicketProject({ updateTicket, deleteTicket }) {
 
   const fetchProjectDevelopers = async () => {
     const res = await fetch(
-      `http://localhost:5000/api/projects/projectDevelopersFromTicket/${params.id}`,
+      `/api/projects/projectDevelopersFromTicket/${params.id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -94,14 +94,11 @@ function TicketProject({ updateTicket, deleteTicket }) {
   };
 
   const fetchTicketAuthor = async () => {
-    const res = await fetch(
-      `http://localhost:5000/api/tickets/ticketAuthor/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`/api/tickets/ticketAuthor/${params.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
 
     return data;
@@ -140,7 +137,7 @@ function TicketProject({ updateTicket, deleteTicket }) {
   };
 
   const fetchTicket = async () => {
-    const res = await fetch(`http://localhost:5000/api/tickets/${params.id}`, {
+    const res = await fetch(`/api/tickets/${params.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

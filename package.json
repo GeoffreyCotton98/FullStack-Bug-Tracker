@@ -1,6 +1,7 @@
 {
   "name": "material_ui_bug_tracker_full_stack",
   "version": "1.0.0",
+  "proxy": "http://localhost:5000",
   "description": "bug tracker app",
   "engines": {
     "node": "16.14.2"

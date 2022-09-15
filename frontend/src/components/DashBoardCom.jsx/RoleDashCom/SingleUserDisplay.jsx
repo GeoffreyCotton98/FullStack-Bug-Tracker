@@ -107,7 +107,7 @@ function SingleUserDisplay({ updateUser }) {
   };
 
   const fetchUser = async () => {
-    const res = await fetch(`http://localhost:5000/api/users/${params.id}`, {
+    const res = await fetch(`/api/users/${params.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -118,42 +118,33 @@ function SingleUserDisplay({ updateUser }) {
   };
 
   const fetchUserCreatedTickets = async () => {
-    const res = await fetch(
-      `http://localhost:5000/api/tickets/user/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`/api/tickets/user/${params.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
 
     return data;
   };
 
   const fetchUserAssignedTickets = async () => {
-    const res = await fetch(
-      `http://localhost:5000/api/tickets/assigned/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`/api/tickets/assigned/${params.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
 
     return data;
   };
 
   const fetchUserProjects = async () => {
-    const res = await fetch(
-      `http://localhost:5000/api/projects/UserProjects/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`/api/projects/UserProjects/${params.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
 
     return data;
