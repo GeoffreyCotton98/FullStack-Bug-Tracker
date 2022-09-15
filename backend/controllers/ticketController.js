@@ -237,6 +237,40 @@ const getProjectTickets = asyncHandler(async (req, res) => {
   res.status(200).json(tickets);
 });
 
+////Ticket Comments/////
+
+//Add Comment to Ticket
+//Get /api/projects/addComment/:id
+//access private
+
+const addTicketComment = asyncHandler(async (req, res) => {
+  //get user with id
+  const loggedInUser = await User.findById(req.user.id);
+  if (!loggedInUser) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Project not found");
+  }
+
+  const updatedTicket = await Ticket.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        comments: req.body,
+      },
+    }
+  );
+
+  res.status(200).json(updatedTicket.comments);
+});
+
 module.exports = {
   getAllTickets,
   getCreatedTickets,
@@ -249,4 +283,5 @@ module.exports = {
   deleteTickets,
   getTicketAuthor,
   getProjectTickets,
+  addTicketComment,
 };

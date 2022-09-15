@@ -14,6 +14,7 @@ const {
   deleteTickets,
   getTicketAuthor,
   getProjectTickets,
+  addTicketComment,
 } = require("../controllers/ticketController");
 
 const { protect, protectAdmin } = require("../middleware/authMiddleware");
@@ -78,8 +79,10 @@ router.route("/ticketAuthor/:id").get(protect, getTicketAuthor);
 //get assigned to tickets
 router.route("/assignedTickets").get(protect, getAssignedTickets);
 
+//@desc add Comments to Ticket
+router.route("/addComment/:id").put(protect, addTicketComment);
+
 //common routes
-//access private
 router.route("/").post(protect, createTickets);
 router.route("/:id").get(protect, getSingleTicket);
 
