@@ -31,14 +31,11 @@ function ProjectManageDashDisplay() {
   const token = user.token;
 
   const fetchProjectManagerProjects = async () => {
-    const res = await fetch(
-      `http://localhost:5000/api/projects/projectManagerProjects`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`/api/projects/projectManagerProjects`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
 
     return data;

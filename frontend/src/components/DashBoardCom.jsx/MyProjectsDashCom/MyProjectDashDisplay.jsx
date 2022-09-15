@@ -26,7 +26,7 @@ function MyProjectDashDisplay() {
   const token = user.token;
 
   const fetchMyProjects = async () => {
-    const res = await fetch("http://localhost:5000/api/projects/MyProjects", {
+    const res = await fetch("/api/projects/MyProjects", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

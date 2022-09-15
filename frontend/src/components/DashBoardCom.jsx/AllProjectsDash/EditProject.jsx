@@ -51,7 +51,7 @@ function EditProject({ users, updateProject }) {
   const token = loggedInUser.token;
 
   const fetchProject = async () => {
-    const res = await fetch(`http://localhost:5000/api/projects/${params.id}`, {
+    const res = await fetch(`/api/projects/${params.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -62,14 +62,11 @@ function EditProject({ users, updateProject }) {
   };
 
   const fetchProjectDevelopers = async () => {
-    const res = await fetch(
-      `http://localhost:5000/api/projects/projectDevelopers/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`/api/projects/projectDevelopers/${params.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await res.json();
 
@@ -77,14 +74,11 @@ function EditProject({ users, updateProject }) {
   };
 
   const fetchProjectManager = async () => {
-    const res = await fetch(
-      `http://localhost:5000/api/projects/projectManager/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`/api/projects/projectManager/${params.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await res.json();
 

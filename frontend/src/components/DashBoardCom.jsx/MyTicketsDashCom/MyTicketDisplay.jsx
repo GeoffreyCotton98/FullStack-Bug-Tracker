@@ -110,7 +110,7 @@ function MyTicketDisplay({ updateTicket }) {
   const token = loggedInUser.token;
 
   const fetchTicket = async () => {
-    const res = await fetch(`http://localhost:5000/api/tickets/${params.id}`, {
+    const res = await fetch(`/api/tickets/${params.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

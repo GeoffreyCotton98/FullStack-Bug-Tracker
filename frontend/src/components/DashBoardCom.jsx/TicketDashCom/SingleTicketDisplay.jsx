@@ -117,7 +117,7 @@ function SingleTicketDisplay({ allUsers, updateTicket, deleteTicket }) {
   };
 
   const fetchTicket = async () => {
-    const res = await fetch(`http://localhost:5000/api/tickets/${params.id}`, {
+    const res = await fetch(`/api/tickets/${params.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -127,14 +127,11 @@ function SingleTicketDisplay({ allUsers, updateTicket, deleteTicket }) {
     return data;
   };
   const fetchTicketAuthor = async () => {
-    const res = await fetch(
-      `http://localhost:5000/api/tickets/ticketAuthor/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`/api/tickets/ticketAuthor/${params.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
 
     return data;

@@ -36,7 +36,7 @@ function CommentTable() {
   const token = loggedInUser.token;
 
   const fetchTicket = async () => {
-    const res = await fetch(`http://localhost:5000/api/tickets/${params.id}`, {
+    const res = await fetch(`/api/tickets/${params.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -47,17 +47,14 @@ function CommentTable() {
   };
 
   const addComment = async (comment) => {
-    const res = await fetch(
-      `http://localhost:5000/api/tickets/addComment/${params.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(comment),
-      }
-    );
+    const res = await fetch(`/api/tickets/addComment/${params.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(comment),
+    });
 
     setComments([comment, ...comments]);
   };
