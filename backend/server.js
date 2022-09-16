@@ -11,17 +11,12 @@ connectDB();
 
 const app = express();
 
+app.use(errorHandler);
+
+app.listen(PORT, () => console.log(`server started on port ${PORT}`));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.get("/Dashboard", (req, res) => {
-  const loggedIn = false;
-  if (loggedIn) {
-    res.status(200).json({ message: "Welcome to Dashboard" });
-  } else {
-    res.status(200).json({ message: "please login" });
-  }
-});
 
 app.get("/Dashboard", (req, res) => {
   const loggedIn = false;
@@ -50,7 +45,3 @@ if (process.env.NODE_ENV === "production") {
     res.status(200).json({ message: "Welcome to Bug Tracker" });
   });
 }
-
-app.use(errorHandler);
-
-app.listen(PORT, () => console.log(`server started on port ${PORT}`));
