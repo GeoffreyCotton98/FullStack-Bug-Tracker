@@ -5,7 +5,7 @@
   <br>
 </h1>
 
-<h4 align="center">A project management and bug tracking application for teams to track developement of projects.</h4>
+<h4 align="center">A project management and bug tracking application for teams to track development of projects.</h4>
 
 <p align="center">
 <a href="#live-app">Live App</a> •
